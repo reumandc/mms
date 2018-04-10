@@ -16,7 +16,7 @@
 #' \item{num.rnk}{The number of lno's that did not result in a rank deficiency regression problem, total across randomizations}
 #' \item{num.usd}{The number of lno's that could be used in the end, total across randomizations)}
 #' 
-#' @author Tom Anderson, \email{anderstl@@gmail.edu}; Daniel Reuman, \email{reuman@@ku.edu}; Jon Walter, \email{jonathan.walter@@ku.edu}
+#' @author Tom Anderson, \email{anderstl@@gmail.edu}; Daniel Reuman, \email{reuman@@ku.edu}; Jon Walter, \email{jaw3es@@virginia.edu}
 #' 
 #' @examples
 #' x<-list(resp=matrix(rnorm(100),nrow=10,ncol=10),pred1=matrix(rnorm(100),nrow=10,ncol=10),pred2=matrix(rnorm(100),nrow=10,ncol=10),pred3=matrix(rnorm(100),nrow=10,ncol=10))

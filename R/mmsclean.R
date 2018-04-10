@@ -1,24 +1,24 @@
-#' Clean data for model selection on distance matrices.
+#' Clean data for model selection for matrix models
 #' 
-#' This function is used to clean data prior to input into LNOCV model selection procedures
+#' This function is used to clean data prior to input into leave-n-out cross valdation (LNOCV) model selection procedures
 #' 
 #' @keywords internal
 #' 
-#' @param mats a named list of matrices, all assumed to be the same dimensions. Only the lower triangles are used. NA/NaNs are allowed. (see \code{\link{table2matrix}})
+#' @param mats A named list of matrices, all assumed to be the same dimensions. Only the lower triangles are used. NA/NaNs are allowed. (See \code{\link{table2matrix}}.)
 #' @param resp The index in mats of the response variable (input is a numeric value, e.g. resp = 1)
-#' @param pred The indices in mat of predictor variables, should not include resp. Input is numeric value(s), e.g. pred=1, pred =1:2, pred =c(1,2,4)
+#' @param pred The indices in mat of predictor variables, should not include resp. Input is numeric value(s), e.g. pred=1, pred =1:2, pred =c(1,2,4).
 #' @param n The number of sampling locations to leave out
 #' 
-#' @return \code{clean.dat} return an object of class list consisting of 
-#' \item{mat}{list of matrices containing response and predictors}
-#' \item{resp}{index of response variable}
-#' \item{pred}{indices of predictor variables}
+#' @return \code{mmsclean} return an object of class list consisting of 
+#' \item{mat}{List of matrices containing response and predictors}
+#' \item{resp}{Index of response variable}
+#' \item{pred}{Indices of predictor variables}
 #' 
-#' @author Tom Anderson, \email{anderstl@@gmail.edu}; Daniel Reuman, \email{reuman@@ku.edu}; Jon Walter, \email{jonathan.walter@@ku.edu}
+#' @author Tom Anderson, \email{anderstl@@gmail.edu}; Daniel Reuman, \email{reuman@@ku.edu}; Jon Walter, \email{jaw3es@@virginia.edu}
 #' 
 #' @examples
 #' x<-list(resp=matrix(rnorm(100),nrow=10,ncol=10),pred1=matrix(rnorm(100),nrow=10,ncol=10),pred2=matrix(rnorm(100),nrow=10,ncol=10))
-#' y<-clean.dat(mats=x,pred=1,resp=2:3,n=3)
+#' y<-mmsclean(mats=x,pred=1,resp=2:3,n=3)
 #'  
 
 
