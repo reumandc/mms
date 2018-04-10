@@ -26,11 +26,11 @@ mmsclean<-function(mats,resp,pred,n)
 {
   if (!(resp %in% 1:length(mats)))
   {
-    stop("Error in clean.dat: response variable index out of bounds")
+    stop("Error in mmsclean: response variable index out of bounds")
   }
   if (!all(pred %in% 1:length(mats)))
   {
-    stop("Error in clean.dat: predictor variable index out of bounds")
+    stop("Error in mmsclean: predictor variable index out of bounds")
   }
   mats<-mats[c(resp,pred)]
   resp<-1
@@ -41,14 +41,14 @@ mmsclean<-function(mats,resp,pred,n)
   if (!all(d1[2:length(d1)]==d1[1]) || !all(d2[2:length(d2)]==d2[1]) ||
       d1[1]!=d2[1])
   {
-    stop("Error in clean.dat: all matrices must be same dimension and 
+    stop("Error in mmsclean: all matrices must be same dimension and 
          square")
   }
   d<-d1[1]
   
   if (n>d/2 || n<0)
   {
-    stop("Error in clean.dat: n out of range")
+    stop("Error in mmsclean: n out of range")
   }
   
   for (counter in 1:length(mats)) 
