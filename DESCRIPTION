@@ -1,0 +1,7 @@
+Package: mms
+Version: 0.1.0
+Type: Package
+Title: Model Selection Via Resampling for Matrix Models
+Author(s): Daniel C. Reuman (reuman@ku.edu), Thomas L. Anderson (anderstl@gmail.com), Jonathan Walter (jaw3es@virginia.edu) 
+Description: Tools for performing model selection among matrix models via resampling approaches
+License: gnu general public licence 3.0
