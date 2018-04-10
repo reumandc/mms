@@ -1,6 +1,6 @@
 #' Calculate leave-n-out cross validation (LNOCV) score
 #' 
-#' This function is used to calculate an LNOCV score for a given model, based on root-mean squared error, out of sample 
+#' This function is used to calculate an LNOCV score for a given model, based on mean squared error, out of sample 
 #' 
 #' @param mats A named list of matrices, all assumed to be the same dimensions. Only the lower triangles are used. NA/NaNs are allowed. (See \code{\link{table2matrix}}.)
 #' @param resp The index in mats of the response variable (input is a numeric value, e.g. resp = 1)

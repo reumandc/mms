@@ -3,7 +3,7 @@
 #' Function to rank models using a leave-n-out cross validation (LNOCV) procedure for matrix regression models
 #' 
 #' @param mats A named list of matrices including the response and predictor variables for which to generate sub-lists and compute model scores using the mmsscore function. The response needs to be the first element.
-#' @param model.names A list of models that specify which model covariates to run LNOCV on. If not specified runs all combinations of predictors. Specification needs to be as numeric values that correspond to mats elements. Examples of model specifications: 2, 2:3, c(2,3,5).
+#' @param model.names A list of models to run LNOCV on. If not specified runs all combinations of predictors. Specification needs to be as numeric values that correspond to mats elements. Examples of model specifications: 2, 2:3, c(2,3,5).
 #' @param n The number of sampling locations to leave out
 #' @param maxruns The maximum number of leave-n-outs to do - to be used if choose(dim(mats[[1]]),n) is very large. NA to use (or try to use) all LNOs. If maxruns is a number, then LNOs are selected randomly and hence may include repeats.
 #' @param rank.mod Logical. If \code{TRUE}, sort models by rank. If \code{FALSE} (default), do not rank models.
