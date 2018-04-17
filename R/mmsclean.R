@@ -32,6 +32,10 @@ mmsclean<-function(mats,resp,pred,n)
   {
     stop("Error in mmsclean: predictor variable index out of bounds")
   }
+  if (resp %in% pred)
+  {
+    stop("Error in mmsclean: resp cannot also be in pred")
+  }
   mats<-mats[c(resp,pred)]
   resp<-1
   pred<-2:length(mats)
@@ -41,8 +45,7 @@ mmsclean<-function(mats,resp,pred,n)
   if (!all(d1[2:length(d1)]==d1[1]) || !all(d2[2:length(d2)]==d2[1]) ||
       d1[1]!=d2[1])
   {
-    stop("Error in mmsclean: all matrices must be same dimension and 
-         square")
+    stop("Error in mmsclean: all matrices must be same dimension and square")
   }
   d<-d1[1]
   
@@ -54,7 +57,6 @@ mmsclean<-function(mats,resp,pred,n)
   for (counter in 1:length(mats)) 
   {
     mats[[counter]][col(mats[[counter]])>=row(mats[[counter]])]<-NA
-    
   }
   
   return(list(mats=mats,resp=resp,pred=pred))
