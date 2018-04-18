@@ -35,6 +35,13 @@ mmsrank<-function(mats,model.names=NA,n,maxruns,rank.mod=F)
     {
       model.names<-c(model.names,combn(2:length(mats),i,simplify = F))
     }
+  } else
+  {
+    #error checking
+    if (any(sapply(X=model.names,FUN=function(x){return(1 %in% x)})))
+    {
+      stop("Error in mmsrank: listed models cannot include the response")
+    }
   }
   
   #Run leave-one-out scoring on the models

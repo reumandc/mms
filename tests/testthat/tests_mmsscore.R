@@ -11,7 +11,7 @@ test_that("test error catching functionality of mmsscore", {
                "Error in mmsscore: more LNOs than the max integer, try reducing n or using maxruns",fixed=T)
 })
 
-test_that("test a perfect-regression case", {
+test_that("test mmsscore in a perfect-regression case", {
   set.seed(101)
   v2<-matrix(rnorm(100),10,10)
   v3<-matrix(rnorm(100),10,10)
@@ -28,7 +28,7 @@ test_that("test a perfect-regression case", {
   expect_equal(h$num.att,choose(10,2))
 })
 
-test_that("an arbitrary test case should come out the same on future runs", {
+test_that("test mmsscore in an arbitrary test case that should come out the same on future runs", {
   set.seed(201)
   v2<-matrix(rnorm(100),10,10)
   v3<-matrix(rnorm(100),10,10)
