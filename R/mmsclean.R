@@ -4,7 +4,7 @@
 #' 
 #' @keywords internal
 #' 
-#' @param mats A named list of matrices, all assumed to be the same dimensions. Only the lower triangles are used. NA/NaNs are allowed. (See \code{\link{table2matrix}}.)
+#' @param mats A named list of matrices, all assumed to be the same dimensions. Only the lower triangles are used (not including the diagonal). NA/NaNs are allowed. (See \code{\link{table2matrix}}.)
 #' @param resp The index in mats of the response variable (input is a numeric value, e.g. resp = 1)
 #' @param pred The indices in mat of predictor variables, should not include resp. Input is numeric value(s), e.g. pred=1, pred =1:2, pred =c(1,2,4).
 #' @param n The number of sampling locations to leave out
@@ -20,7 +20,6 @@
 #' x<-list(resp=matrix(rnorm(100),nrow=10,ncol=10),pred1=matrix(rnorm(100),nrow=10,ncol=10),pred2=matrix(rnorm(100),nrow=10,ncol=10))
 #' y<-mmsclean(mats=x,pred=1,resp=2:3,n=3)
 #'  
-
 
 mmsclean<-function(mats,resp,pred,n)
 {
