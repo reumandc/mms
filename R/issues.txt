@@ -1,1 +1,3 @@
 Are the argument defaults apparent in the help files?
+
+Did mmsmodwts break? I (Jon) get an error seemingly from mmsmodwts when I try to run tests on mmsvarwts.
