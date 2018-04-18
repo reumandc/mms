@@ -23,7 +23,6 @@
 #' print(y)
 #' @export
 
-
 mmsscore<-function(mats,resp,pred,n,maxruns) 
 {
   #clean and error check data
@@ -40,20 +39,16 @@ mmsscore<-function(mats,resp,pred,n,maxruns)
     #by setting maxruns to NA, the user indicates to use all lno's
     if (num.pos>.Machine$integer.max)
     {
-      stop("Error in mmsscore: more LNOs than the max integer, try 
-           reducing n or using maxruns")
+      stop("Error in mmsscore: more LNOs than the max integer, try reducing n or using maxruns")
     }  
     lnot<-try(system.time(matrix(0,nrow=n,ncol=num.pos)),silent=T)
     if (class(lnot)=="try-error")
     {
-      stop("Error in mmsscore: not enough memory to enumerate all 
-           the LNOs, try reducing n or using maxruns")
+      stop("Error in mmsscore: not enough memory to enumerate all the LNOs, try reducing n or using maxruns")
     }
     if (lnot["elapsed"]>5)
     {
-      stop("Error in mmsscore: it took more than 5 seconds just to 
-           allocate enough memory to store all the LNOs, try reducing 
-           n or using maxruns")
+      stop("Error in mmsscore: it took more than 5 seconds just to allocate enough memory to store all the LNOs, try reducing n or using maxruns")
     }  
     lno<-combn(1:d,n)
   } else
@@ -80,7 +75,7 @@ mmsscore<-function(mats,resp,pred,n,maxruns)
     form<-paste(form,names(mats)[length(mats)],sep='')
   }
   
-  #for each leave-n-out, get out of sample prediction accuracy
+  #for each leave-n-out, get out-of-sample prediction accuracy
   res.lno<-c()
   num.contrib<-c()
   rankprob<-c()
