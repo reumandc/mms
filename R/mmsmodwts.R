@@ -4,9 +4,10 @@
 #' 
 #' @param mats A named list of matrices including the response and predictor variables for which to generate sub-lists and compute model scores using the mmsscore function. The response needs to be the first element.
 #' @param model.names A list of models tto run LNOCV on; if not specified runs all combinations of predictors. Specification needs to be as numeric values that correspond to mats elements. Examples of model specifications: 2, 2:3, c(2,3,5).
-#' @param n The number of sampling locations to leave out
+#' @param n The number of sampling locations to leave out, must be at least 2.
 #' @param maxruns The maximum number of leave-n-outs to do - to be used if choose(dim(mats[[1]]),n) is very large. NA to use (or try to use) all LNOs. If maxruns is a number,then LNOs are selected randomly and hence may include repeats.
 #' @param nrand The number of randomizations to perform
+#' @param progress T/F, should progress be printed to the screen? Default T.
 #' 
 #' @return \code{mmsmodwts} return an object of class list consisting of 
 #' \item{model.name}{The name of the model, based on the indices of included predictors in mats}
@@ -24,7 +25,7 @@
 #' print(y)
 #' @export
 
-mmsmodwts<-function(mats,model.names=NA,nrand,n,maxruns)
+mmsmodwts<-function(mats,model.names=NA,nrand,n,maxruns,progress=T)
 {
   nsites<-dim(mats[[1]])[1]
   
@@ -43,8 +44,11 @@ mmsmodwts<-function(mats,model.names=NA,nrand,n,maxruns)
   for(rand in 1:nrand)
   {
     #status
-    print(paste("mmsmodwts working on resampling ",rand," of ",
+    if (progress)
+    {
+      print(paste("mmsmodwts working on resampling ",rand," of ",
                 nrand,sep=''))
+    }
     
     #choose sampling sites with replacement
     ind<-sample(1:nsites,replace=T) 

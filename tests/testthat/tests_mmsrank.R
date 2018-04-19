@@ -46,7 +46,8 @@ test_that("test mmsrank for a semi-realistic case", {
   h<-mmsrank(mats=mats,model.names=model.names,n=n,maxruns=maxruns,rank.mod=rank.mod)
   #This should tend to have:
   # 1) the full model (2:4) as top ranked
-  # 2) for a given number of included predictors, models with larger predictor numbers should be favored since the coefficients used were larger for those
+  # 2) for a given number of included predictors, models with larger predictor numbers should be 
+  #     favored since the coefficients used were larger for those
   # 3) models with certain predictors should tend to be better than models with subsets of those
   #All of these were true for this seed when I looked at the output. So just error check whether
   #the same output is obtained on future runs.

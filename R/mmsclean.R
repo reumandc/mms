@@ -7,7 +7,7 @@
 #' @param mats A named list of matrices, all assumed to be the same dimensions. Only the lower triangles are used (not including the diagonal). NA/NaNs are allowed. (See \code{\link{table2matrix}}.)
 #' @param resp The index in mats of the response variable (input is a numeric value, e.g. resp = 1)
 #' @param pred The indices in mat of predictor variables, should not include resp. Input is numeric value(s), e.g. pred=1, pred =1:2, pred =c(1,2,4).
-#' @param n The number of sampling locations to leave out
+#' @param n The number of sampling locations to leave out. Must be at least 2.
 #' 
 #' @return \code{mmsclean} return an object of class list consisting of 
 #' \item{mat}{List of matrices containing response and predictors}
@@ -46,9 +46,9 @@ mmsclean<-function(mats,resp,pred,n)
   {
     stop("Error in mmsclean: all matrices must be same dimension and square")
   }
-  d<-d1[1]
+  d<-unname(d1[1])
   
-  if (n>d/2 || n<0)
+  if (n>d/2 || n<2)
   {
     stop("Error in mmsclean: n out of range")
   }
