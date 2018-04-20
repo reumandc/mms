@@ -1,0 +1,51 @@
+---
+title: "Matrix model selection package"
+author: "Jonathan Walter, Thomas Anderson, Daniel Reuman"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette
+    fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{Matrix model selection package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+<!--Thoughts on what should maybe be included:
+Brief qualitative intro to matrix model selection, with references
+Reference to Jon's paper, and Tom's Oikos and L&O (hopefully) papers
+I would ike to have an example using real data, Jon's gypsy moth or Tom's Oikos would be good, but need something where the 
+  data (or a suitable subset) can be included, and it also needs to run reasonably fast
+Basically we describe the method (copy from the section in supp mat in Ecol Lett, basically)
+We also will have to intro the data
+Mention the likelihood methods, cite the relevant papers, say the contexts where those wont work
+Show the use of all the functions that the user needs on the data
+-->
+
+# Brief introduction to matrix regression
+
+
+# Example data
+
+
+# Model selection on matrix models and the package functions
+<!--This includes:
+How to call the functions, how to interpret results - done on the example data, simultaneous description of how to use the functions and how   to interpret the stats
+Brief statement on why the usual AIC methods wont work here
+Brief statement on the likelihood methods that exist (REFS) and why they wont work here
+-->
+
+# Details of the method
+<!--Much like the suppmat section of Jon's Ecol Lett paper that is about these methods -->
+
+# Simulation study of effectiveness
+<!-- Not sure what this will be or even if it will remain. Could be a paired down version of the model-based proof of effeciveness
+of the method that is in Jon's Ecol Lett paper, or could be that whole thing reproduced (but watch run times) or could just be a 
+summary of the results that appear there and a citation-->
