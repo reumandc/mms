@@ -9,7 +9,7 @@
 #' @param rank.mod Logical. If \code{TRUE}, sort models by rank. If \code{FALSE} (default), do not rank models.
 #' 
 #' @return \code{mmsrank} Return a data frame with columns for 
-#' \item{model.name}{The name of the model, based on the indices of included predictors in mats}
+#' \item{model.names}{The name of the model, based on the indices of included predictors in mats}
 #' \item{lno.score}{The out-of-sample forecast accuracy (mean squared error)}
 #' \item{num.pos}{The possible number of LNOs for the given n and number of locations}
 #' \item{num.att}{The total number of LNOs attempted}

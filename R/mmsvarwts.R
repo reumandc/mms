@@ -18,10 +18,15 @@ mmsvarwts<-function(pred, weights, varnames=NULL){
   
   #Check inputs
   if(!is.null(varnames)){
-    if(length(pred) != length(varnames))
+    if(length(pred) != length(varnames)-1)
     {
-      stop("Error in mmsvarwts: varnames must be the same length as pred")  
+      stop("Error in mmsvarwts: varnames must be one element longer than pred")  
     }
+  }
+  
+  if(!"model.names" %in% names(weights) | !"freq.top" %in% names(weights))
+  {
+    stop("Error in msvarwts: weights must contain model.names and freq.top")    
   }
   
   weights$top.frac<-weights$freq.top/sum(weights$freq.top)

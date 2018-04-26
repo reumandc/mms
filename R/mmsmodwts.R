@@ -10,7 +10,7 @@
 #' @param progress T/F, should progress be printed to the screen? Default T.
 #' 
 #' @return \code{mmsmodwts} return an object of class list consisting of 
-#' \item{model.name}{The name of the model, based on the indices of included predictors in mats}
+#' \item{model.names}{The name of the model, based on the indices of included predictors in mats}
 #' \item{freq.top}{The number of times it was the top model, across randomizations}
 #' \item{num.pos}{The possible number of LNOs for the given n and number of locations}
 #' \item{num.att}{The total number of LNOs attempted, total across randomizations}
