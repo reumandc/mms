@@ -4,7 +4,7 @@
 #' 
 #' @param mats A named list of matrices, all assumed to be the same dimensions. Only the lower triangles are used. NA/NaNs are allowed. (See \code{\link{table2matrix}}.)
 #' @param resp The index in mats of the response variable (input is a numeric value, e.g. resp = 1)
-#' @param pred The indices in mat of predictor variables, should not include resp. Input is numeric value(s), e.g. pred=1, pred =1:2, pred =c(1,2,4).
+#' @param pred The indices in mats of predictor variables, should not include resp. Input is numeric value(s), e.g. pred=1, pred =1:2, pred =c(1,2,4).
 #' @param n The number of sampling locations to leave out, must be at least 2.
 #' @param maxruns The maximum number of leave-n-outs (LNOs) to do. To be used if choose(dim(mats[[1]]),n) is very large. NA to use (or try to use) all LNOs. If maxruns is a number, then LNOs are selected randomly and hence may include repeats.
 #' 
