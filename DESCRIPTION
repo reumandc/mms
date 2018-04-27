@@ -2,9 +2,16 @@ Package: mms
 Version: 0.1.0
 Type: Package
 Title: Model Selection Via Resampling for Matrix Models
-Author(s): Daniel C. Reuman (reuman@ku.edu), Thomas L. Anderson (anderstl@gmail.com), Jonathan Walter (jaw3es@virginia.edu) 
+Authors@R: c(
+    person("Daniel C.", "Reuman", email = "reuman@ku.edu", role = c("aut", "cre", "cph")),
+    person("Thomas L.", "Anderson", email="anderstl@gmail.com", role=c("aut","dtc")),
+    person("Jonathan", "Walter", email = "jaw3es@virginia.edu", role=c("aut")),
+    person("Lei", "Zhao", email = "leizhao@ku.edu", role=c("aut"))
+    )
 Description: Tools for performing model selection among matrix models via resampling approaches
 License: gnu general public licence 3.0
+Encoding: UTF-8
+LazyData: true
 Suggests: testthat,
     knitr,
     rmarkdown
