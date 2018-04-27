@@ -22,7 +22,7 @@ errcheck_pred<-function(comingfrom,predlist,lenmats)
     }
     if (!all(pred %in% 2:length(mats)))
     {
-      stop(paste0("Error in ",comingfrom",: predictor variable index out of bounds"))
+      stop(paste0("Error in ",comingfrom,": predictor variable index out of bounds"))
     }
   }
 
