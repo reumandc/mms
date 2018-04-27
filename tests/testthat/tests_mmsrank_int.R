@@ -1,22 +1,6 @@
-context("mmsrank")
+context("mmsrank_int")
 
-test_that("test error catching functionality of mmsrank", {
-  #test 1
-  set.seed(101)
-  v2<-matrix(rnorm(100),10,10)
-  v3<-matrix(rnorm(100),10,10)
-  v4<-matrix(rnorm(100),10,10)
-  v1<-1*v2+2*v3+3*v4+1
-  mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
-  model.names<-list(2:4,3:4,1:4)
-  n<-3
-  maxruns<-NA
-  rank.mod<-T
-  expect_error(mmsrank(mats=mats,model.names=model.names,n=n,maxruns=maxruns,rank.mod=rank.mod),
-               "Error in mmsrank: listed models cannot include the response",fixed=T)
-})  
-  
-test_that("test mmsrank in an arbitrary test case that should come out the same on future runs", {
+test_that("test mmsrank_int in an arbitrary test case that should come out the same on future runs", {
   set.seed(201)
   v2<-matrix(rnorm(100),10,10)
   v3<-matrix(rnorm(100),10,10)
@@ -27,23 +11,23 @@ test_that("test mmsrank in an arbitrary test case that should come out the same 
   n<-2
   maxruns<-100
   rank.mod<-T
-  h<-mmsrank(mats=mats,model.names=model.names,n=n,maxruns=maxruns,rank.mod=rank.mod)
+  h<-mmsrank_int(mats=mats,model.names=model.names,n=n,maxruns=maxruns,rank.mod=rank.mod)
   #I got this hash with digest::digest(h)
-  expect_known_hash(h,hash="92774925e3dd8ab181afb7396563ab02")    
+  expect_known_hash(h,hash="a114eab35c7fff7b74efe6f1afe50f95")    
 })
 
-test_that("test mmsrank for a semi-realistic case", {
+test_that("test mmsrank_int for a semi-realistic case", {
   set.seed(401)
   v2<-matrix(rnorm(100),10,10)
   v3<-matrix(rnorm(100),10,10)
   v4<-matrix(rnorm(100),10,10)
   v1<-1*v2+2*v3+3*v4+1+matrix(rnorm(100,sd=.1),10,10)
   mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
-  model.names<-NA
+  model.names<-list(2,3,4,c(2,3),c(2,4),c(3,4),c(2,3,4))
   n<-2
-  maxruns<-NA
+  maxruns<-Inf
   rank.mod<-T
-  h<-mmsrank(mats=mats,model.names=model.names,n=n,maxruns=maxruns,rank.mod=rank.mod)
+  h<-mmsrank_int(mats=mats,model.names=model.names,n=n,maxruns=maxruns,rank.mod=rank.mod)
   #This should tend to have:
   # 1) the full model (2:4) as top ranked
   # 2) for a given number of included predictors, models with larger predictor numbers should be 
@@ -51,5 +35,5 @@ test_that("test mmsrank for a semi-realistic case", {
   # 3) models with certain predictors should tend to be better than models with subsets of those
   #All of these were true for this seed when I looked at the output. So just error check whether
   #the same output is obtained on future runs.
-  expect_known_hash(h,hash="69ca4d2b705a3f20a77adbab738b1391")    
+  expect_known_hash(h,hash="2d4617739698782f00a0f1c0c9f1ecea")    
 })

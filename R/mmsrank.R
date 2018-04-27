@@ -25,5 +25,18 @@
 
 mmsrank<-function(mats,model.names=NA,n,maxruns,rank.mod=F)
 {
- 
+  #error checking
+  errcheck_mats("mmsrank",mats)
+  errcheck_n("mmsrank",dim(mats[[1]]),n,maxruns)
+  
+  #if the user does not provide a list of models names, make one with 
+  #all names
+  if(length(model.names)==1 && is.na(model.names)==T){
+    model.names<-makenames(length(mats))
+  } else
+  {
+    errcheck_pred("mmsrank",model.names,length(mats))
+  }
+  
+  return(mmsrank_int(mats,model.names,n,maxruns,rank.mod))
 }
