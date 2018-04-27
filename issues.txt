@@ -14,3 +14,6 @@ Did mmsmodwts break? I (Jon) get an error seemingly from mmsmodwts when I try to
   counting the one for mmsvarwts that Jon wrote, which I commented out). So not all functions except mmsvarwts are passing 
   at least one test, which means the way *should* be clear for Jon to put in a test for mmsvarwts, though, Jon, you will
   have to change you test to use n>1.
+  
+Ask Lei one more time to compare matregtest output to his function. Do this after writing unit tests for the error checking functions called
+at the beginning of matregtest
