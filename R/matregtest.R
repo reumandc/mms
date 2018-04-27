@@ -2,7 +2,7 @@
 #' 
 #' A function for doing matrix regression tests of a model against a nested model.
 #' 
-#' @param mats A named list of matrices, all assumed to be the same dimensions and symmetric. Diagonals are not used. NA/NaNs are allowed. (See \code{\link{table2matrix}}.)
+#' @param mats A named list of matrices, all assumed to be the same dimensions and symmetric. Diagonals are not used. Off-diagonal NA/NaNs/Infs/etc not allowed. 
 #' @param resp The index in mats of the response variable (input is a numeric value, e.g. resp = 1)
 #' @param pred The indices in mats of predictor variables in the more complex of the two models to be compared, should not include resp. Input is numeric value(s), e.g. pred=1, pred =1:2, pred =c(1,2,4).
 #' @param drop The indices in mats of predictor variables that are dropped to get from the complex to the simple model. Should be a subset of pred. 
