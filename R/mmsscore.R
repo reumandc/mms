@@ -21,7 +21,9 @@
 #' x<-list(resp=matrix(rnorm(100),nrow=10,ncol=10),pred1=matrix(rnorm(100),nrow=10,ncol=10),pred2=matrix(rnorm(100),nrow=10,ncol=10),pred3=matrix(rnorm(100),nrow=10,ncol=10))
 #' y<-mmsscore(x,resp=1,pred=2:4,n=3,maxruns=1000) 
 #' print(y)
+#' 
 #' @export
+
 
 mmsscore<-function(mats,resp,pred,n,maxruns) 
 {

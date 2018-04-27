@@ -2,9 +2,7 @@
 title: "Matrix model selection package"
 author: "Jonathan Walter, Thomas Anderson, Daniel Reuman"
 date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_vignette
-    fig_caption: yes
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Matrix model selection package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -27,6 +25,7 @@ Basically we describe the method (copy from the section in supp mat in Ecol Lett
 We also will have to intro the data
 Mention the likelihood methods, cite the relevant papers, say the contexts where those wont work
 Show the use of all the functions that the user needs on the data
+Don't forget the new function matregtest
 -->
 
 # Brief introduction to matrix regression

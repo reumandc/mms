@@ -17,6 +17,7 @@
 #' 
 #' @examples
 #' 
+#' @export
 
 
 matregtest<-function(mats,resp,pred,drop,numperm)

@@ -22,6 +22,7 @@
 #' x<-list(resp=matrix(rnorm(100),nrow=10,ncol=10),pred1=matrix(rnorm(100),nrow=10,ncol=10),pred2=matrix(rnorm(100),nrow=10,ncol=10),pred3=matrix(rnorm(100),nrow=10,ncol=10))
 #' y<-mmsrank(x,model.names=NA,n=3,maxruns=1000,rank.mod=T) 
 #' print(y)
+#' 
 #' @export
 
 

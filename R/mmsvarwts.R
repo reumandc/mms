@@ -12,7 +12,9 @@
 #' x<-list(resp=matrix(rnorm(100),nrow=10,ncol=10),pred1=matrix(rnorm(100),nrow=10,ncol=10),pred2=matrix(rnorm(100),nrow=10,ncol=10),pred3=matrix(rnorm(100),nrow=10,ncol=10))
 #' y<-mmsmodwts(x,model.names=NA,n=3,maxruns=10,nrand=10) 
 #' mmsvarwts(pred=2:4,weights=y,varnames=names(x))
+#' 
 #' @export
+
 
 mmsvarwts<-function(pred, weights, varnames=NULL){
   
