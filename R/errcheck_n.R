@@ -14,17 +14,20 @@
 
 errcheck_n<-function(comingfrom,dimmats,n,maxruns)
 {
-  if (!(is.integer(n) && (is.integer(maxruns) || maxruns==Inf)))
+  is.wholenumber <-
+    function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
+  
+  if (!(is.wholenumber(n) && (is.wholenumber(maxruns) || maxruns==Inf)))
   {
-    stop(paste0("Error in ",comingfrom,": n must be an integer, maxruns must be an integer or Inf"))
+    stop(paste0("Error in ",comingfrom,": n must be a whole number, maxruns must be a whole number or Inf"))
   }
   if (maxruns<=0)
   {
-    stop(paste0("Error in ",comingfrom",: maxruns out of range"))
+    stop(paste0("Error in ",comingfrom,": maxruns out of range"))
   }
   if (n>dimmats/2 || n<2)
   {
-    stop(paste0("Error in ",comingfrom",: n must be at least 2 and not more than half the dimension of the matrices")
+    stop(paste0("Error in ",comingfrom,": n must be at least 2 and not more than half the dimension of the matrices"))
   }
   
   if (is.infinite(maxruns)) #by setting maxruns to Inf, the user indicates to use all lno's
@@ -46,7 +49,7 @@ errcheck_n<-function(comingfrom,dimmats,n,maxruns)
   }
   if (lnot["elapsed"]>5)
   {
-    stop(paste0("Error in ",comingfrom,": it took more than 5 seconds just to allocate enough memory to store all the LNOs, try reducing n or using a lower maxruns")
+    stop(paste0("Error in ",comingfrom,": it took more than 5 seconds just to allocate enough memory to store all the LNOs, try reducing n or using a lower maxruns"))
   }  
   
   return()
