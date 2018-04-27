@@ -103,15 +103,15 @@ available using:
 
 ```{r}
 library(mms)
-data(simdat)
-attach(simdat)
+#data(simdat)
+#attach(simdat)
 ```
 
 The object 'simdat' is a list containing four matrices. The first three are $P$ by $t$ matrices giving, respectively, abundances $w_{i}(t)$ and environmental fluctuations $\epsilon_{i}^{(j)}(t)$ for the operating ($j=1$) and latent ($j=2$) drivers. The fourth is the $P$ by $P$ dispersal matrix, $D$. We then compute synchrony matrices using Pearson correlations:
 
 ```{r}
-popsynch<-cor(t(simdat$pop), method="pearson")
-driversynch<-cor(t(simdat$driver), method="pearson")
-latentsynch<-cor(t(simdat$latent), method="pearson")
+#popsynch<-cor(t(simdat$pop), method="pearson")
+#driversynch<-cor(t(simdat$driver), method="pearson")
+#latentsynch<-cor(t(simdat$latent), method="pearson")
 ```
 
