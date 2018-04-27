@@ -7,7 +7,7 @@
 matregtest(mats, resp, pred, drop, numperm)
 }
 \arguments{
-\item{mats}{A named list of matrices, all assumed to be the same dimensions. Only the lower triangles are used (not including the diagonal). NA/NaNs are allowed. (See \code{\link{table2matrix}}.)}
+\item{mats}{A named list of matrices, all assumed to be the same dimensions and symmetric. Diagonals are not used. NA/NaNs are allowed. (See \code{\link{table2matrix}}.)}
 
 \item{resp}{The index in mats of the response variable (input is a numeric value, e.g. resp = 1)}
 

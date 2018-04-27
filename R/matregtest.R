@@ -2,7 +2,7 @@
 #' 
 #' A function for doing matrix regression tests of a model against a nested model.
 #' 
-#' @param mats A named list of matrices, all assumed to be the same dimensions. Only the lower triangles are used (not including the diagonal). NA/NaNs are allowed. (See \code{\link{table2matrix}}.)
+#' @param mats A named list of matrices, all assumed to be the same dimensions and symmetric. Diagonals are not used. NA/NaNs are allowed. (See \code{\link{table2matrix}}.)
 #' @param resp The index in mats of the response variable (input is a numeric value, e.g. resp = 1)
 #' @param pred The indices in mats of predictor variables in the more complex of the two models to be compared, should not include resp. Input is numeric value(s), e.g. pred=1, pred =1:2, pred =c(1,2,4).
 #' @param drop The indices in mats of predictor variables that are dropped to get from the complex to the simple model. Should be a subset of pred. 
@@ -44,6 +44,7 @@ matregtest<-function(mats,resp,pred,drop,numperm)
     stop("Error in matregtest: drop should be a subset of pred")
   }
   mats<-mats[c(resp,pred)]
+  if(is.null(names(mats))){names(mats)<-c("y",paste0("x",1:length(pred)))}
   resp<-1
   drop<-which(pred %in% drop)+1
   pred<-2:length(mats)
@@ -58,10 +59,30 @@ matregtest<-function(mats,resp,pred,drop,numperm)
   }
   d<-unname(d1[1])
   
-  #take only the lower triangles
-  for (counter in 1:length(mats)) 
+  #further error checking - make sure all the matrices are symmetric
+  for (counter in 1:length(mats))
   {
-    mats[[counter]][col(mats[[counter]])>=row(mats[[counter]])]<-NA
+    if (!isSymmetric(mats[[counter]]))
+    {
+      stop("Error in matregtest: all matrices must be symmetric")
+    }
+  }
+  
+  #further error checking - screen for off-diagonal NAs
+  for (counter in 1:length(mats))
+  {
+    h<-mats[[counter]]
+    diag(h)<-0
+    if (!all(is.finite(h)))
+    {
+      stop("Error in matregtest: non-finite off diagonal entries not allowed")
+    }
+  }
+  
+  #throw out the diagonals
+  for (counter in 1:length(mats))
+  {
+    diag(mats[[counter]])<-NA
   }
   
   #get the regression formula for the complex model
@@ -81,7 +102,7 @@ matregtest<-function(mats,resp,pred,drop,numperm)
   #do the regression for the complex model, keep the sum of squared residuals
   dfdat<-as.data.frame(sapply(mats,as.vector))
   mod<-lm(form.com,dfdat,na.action=na.omit)
-  ssr_dat<-sum((mod$residuals)^2)
+  ssr_dat<-(sum((mod$residuals)^2))/2 #divide by 2 because we have the upper and lower triangle
   
   #apply the randomization to the matrices that are dropped in the simpler model 
   #and then repeat the regression, numperm times
@@ -98,7 +119,7 @@ matregtest<-function(mats,resp,pred,drop,numperm)
     #do the regression
     dfdat<-as.data.frame(sapply(mats,as.vector))
     mod<-lm(form.com,dfdat,na.action=na.omit)
-    ssr_perm[permcount]<-sum((mod$residuals)^2)
+    ssr_perm[permcount]<-(sum((mod$residuals)^2))/2 #divide by 2 because we have the upper and lower triangle
   }
   
   #now get the output p-value

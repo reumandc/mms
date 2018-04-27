@@ -44,13 +44,30 @@ test_that("test error catching functionality of matregtest", {
   numperm<-100
   expect_error(matregtest(mats,resp,pred,drop,numperm),
                "Error in matregtest: all matrices must be same dimension and square",fixed=T)
+  
+  mats<-list(v1=matrix(1:16,4,4),v2=matrix(17:32,4,4),v3=matrix(5,4,4))
+  resp<-1
+  pred<-2:3
+  drop<-3
+  numperm<-100
+  expect_error(matregtest(mats,resp,pred,drop,numperm),
+               "Error in matregtest: all matrices must be symmetric")
+  
+  mats<-list(v1=matrix(1,4,4),v2=matrix(2,4,4),v3=matrix(5,4,4))
+  mats[[1]][1,2]<-NA
+  mats[[1]][2,1]<-NA
+  expect_error(matregtest(mats,resp,pred,drop,numperm),
+               "Error in matregtest: non-finite off diagonal entries not allowed")
 })
 
 test_that("test matregtest in a perfect-regression case", {
   set.seed(101)
   v2<-matrix(rnorm(100),10,10)
+  v2<-v2+t(v2)
   v3<-matrix(rnorm(100),10,10)
+  v3<-v3+t(v3)
   v4<-matrix(rnorm(100),10,10)
+  v4<-v4+t(v4)
   v1<-1*v2+2*v3+3*v4+1
   mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
   resp<-1
@@ -65,10 +82,16 @@ test_that("test matregtest in a perfect-regression case", {
 test_that("test matregtest in arbitrary test cases that should come out the same on future runs", {
   set.seed(201)
   v2<-matrix(rnorm(100),10,10)
+  v2<-v2+t(v2)
   v3<-matrix(rnorm(100),10,10)
+  v3<-v3+t(v3)
   v4<-matrix(rnorm(100),10,10)
+  v4<-v4+t(v4)
   v5<-matrix(rnorm(100),10,10)
-  v1<-1*v2+2*v3+1+matrix(rnorm(100,sd=.1),10,10)
+  v5<-v5+t(v5)
+  err<-matrix(rnorm(100,sd=.05),10,10)
+  err<-err+t(err)
+  v1<-1*v2+2*v3+1+err
   mats<-list(v1=v1,v2=v2,v3=v3,v4=v4,v5=v5)
   resp<-1
   pred<-2:5
@@ -76,10 +99,10 @@ test_that("test matregtest in arbitrary test cases that should come out the same
   numperm<-100
   h<-matregtest(mats,resp,pred,drop,numperm)
   #I got this hash with digest::digest(h)
-  expect_known_hash(h,hash="2957ef227e2f894546436b8d8580b44a")
+  expect_known_hash(h,hash="4a1352751f6e936ff58e1d17fa92c5c6")
   
   drop<-2:3
   h<-matregtest(mats,resp,pred,drop,numperm)
   #I got this hash with digest::digest(h)
-  expect_known_hash(h,hash="f9e2c2a7cf0db590cfbaa850c418979d")
+  expect_known_hash(h,hash="a17b5db17284e14f7c8c8e8224a7c9a3")
 })
