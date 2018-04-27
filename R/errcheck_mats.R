@@ -33,7 +33,7 @@ errcheck_mats<-function(comingfrom,mats)
   {
     if (!isSymmetric(mats[[counter]]))
     {
-      stop(paste0("Error in ",comingfrom,": all matrices must be symmetric")
+      stop(paste0("Error in ",comingfrom,": all matrices must be symmetric"))
     }
   }
   
@@ -44,7 +44,7 @@ errcheck_mats<-function(comingfrom,mats)
     diag(h)<-0
     if (!all(is.finite(h)))
     {
-      stop(paste0("Error in ",comingfrom,": non-finite off diagonal entries not allowed")
+      stop(paste0("Error in ",comingfrom,": non-finite off diagonal entries not allowed"))
     }
   }
   
