@@ -20,7 +20,7 @@ errcheck_pred<-function(comingfrom,predlist,lenmats)
     {
       stop(paste0("Error in ",comingfrom,": at least one predictor required"))
     }
-    if (!all(pred %in% 2:length(mats)))
+    if (!all(pred %in% 2:lenmats))
     {
       stop(paste0("Error in ",comingfrom,": predictor variable index out of bounds"))
     }

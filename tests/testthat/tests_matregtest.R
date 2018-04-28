@@ -19,8 +19,18 @@ test_that("test matregtest in a perfect-regression case", {
 })
 
 test_that("test matregtest error catching", {
+  set.seed(101)
+  v2<-matrix(rnorm(100),10,10)
+  v2<-v2+t(v2)
+  v3<-matrix(rnorm(100),10,10)
+  v3<-v3+t(v3)
+  v4<-matrix(rnorm(100),10,10)
+  v4<-v4+t(v4)
+  v1<-1*v2+2*v3+3*v4+1
+  mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
   pred<-2:3
   drop<-4
+  numperm<-10
   expect_error(matregtest(mats,pred,drop,numperm),"Error in matregtest: drop should be a subset of pred")
 })
 
