@@ -26,11 +26,6 @@ mmsscore_int(mats, pred, n, maxruns)
 \description{
 This function is used to calculate an LNOCV score for a given model, based on mean squared error, out of sample. Same as mmsscore but with no error checking.
 }
-\examples{
-x<-list(resp=matrix(rnorm(100),nrow=10,ncol=10),pred1=matrix(rnorm(100),nrow=10,ncol=10),pred2=matrix(rnorm(100),nrow=10,ncol=10),pred3=matrix(rnorm(100),nrow=10,ncol=10))
-y<-mmsscore(x,pred=2:4,n=3,maxruns=1000) 
-print(y)
-}
 \author{
 Tom Anderson, \email{anderstl@gmail.edu}; Daniel Reuman, \email{reuman@ku.edu}; Jon Walter, \email{jaw3es@virginia.edu}
 }

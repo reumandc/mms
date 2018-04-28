@@ -6,14 +6,14 @@
 \usage{
 makeform(mats)
 }
+\arguments{
+\item{mats}{The argument \code{mats} to various other functions in the package}
+}
 \value{
 \code{makeform} A regression model formula using the names of \code{mats}
 }
 \description{
 Makes a formula for regression models
-}
-\details{
-param@ mats The argument \code{mats} to various other functions in the package
 }
 \author{
 Daniel Reuman, \email{reuman@ku.edu}

@@ -8,8 +8,8 @@ Authors@R: c(
     person("Jonathan", "Walter", email = "jaw3es@virginia.edu", role=c("aut")),
     person("Lei", "Zhao", email = "leizhao@ku.edu", role=c("aut"))
     )
-Description: Tools for performing model selection among matrix models via resampling approaches
-License: gnu general public licence 3.0
+Description: The package contains tools for performing model selection among matrix models via resampling approaches.
+License: GPL (>=3)
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat,

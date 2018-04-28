@@ -2,7 +2,7 @@
 #' 
 #' Makes a formula for regression models
 #' 
-#' param@ mats The argument \code{mats} to various other functions in the package
+#' @param mats The argument \code{mats} to various other functions in the package
 #' 
 #' @return \code{makeform} A regression model formula using the names of \code{mats} 
 #' 

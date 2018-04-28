@@ -19,9 +19,6 @@
 #' @author Tom Anderson, \email{anderstl@@gmail.edu}; Daniel Reuman, \email{reuman@@ku.edu}; Jon Walter, \email{jaw3es@@virginia.edu}
 #' 
 #' @examples
-#' x<-list(resp=matrix(rnorm(100),nrow=10,ncol=10),pred1=matrix(rnorm(100),nrow=10,ncol=10),pred2=matrix(rnorm(100),nrow=10,ncol=10),pred3=matrix(rnorm(100),nrow=10,ncol=10))
-#' y<-mmsscore(x,pred=2:4,n=3,maxruns=1000) 
-#' print(y)
 
 
 mmsscore_int<-function(mats,pred,n,maxruns) 

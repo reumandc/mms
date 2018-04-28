@@ -1,21 +1,8 @@
 Are the argument defaults apparent in the help files?
 
-Did mmsmodwts break? I (Jon) get an error seemingly from mmsmodwts when I try to run tests on mmsvarwts. 
-  DAN says on morning 2018 04 19: possibly, I have not written tests for mmsmodwts yet. But tests for varwts 
-  should not rely on modwts to pass/fail, they should be tests only of varwts, so I am going to work on chaging that now
-  
-  DAN says on afternoon of 2018 04 19: I did not end up changing the test for varwts, I left that for Jon, I just commented
-  out the current test. The reason is, when chasing down the reason that test failed, I found a larger semi-issue. The issue
-  is, none of the functions work for n=1. They are not supposed to. The functions are based on comparisons between locations,
-  and out-of-sample accuracy is judged based on ability to predict comparisons between omitted locations. But when only one
-  location is omitted, there are no *comparisons* between omitted locations. Recall that self comparisons are always discarded.
-  So I changed the error check for n (down in the cleaning function) to require n>=2. I added unit tests for this new 
-  functionality, too. In the process of the above I wrote a unit tests for mmsmodwts, and all current unit tests passed (not
-  counting the one for mmsvarwts that Jon wrote, which I commented out). So not all functions except mmsvarwts are passing 
-  at least one test, which means the way *should* be clear for Jon to put in a test for mmsvarwts, though, Jon, you will
-  have to change you test to use n>1.
-  
 Ask Lei one more time to compare matregtest output to his function. Do this after writing unit tests for the error checking functions called
 at the beginning of matregtest
 
 not all the examples are filled in - fill them in
+
+some NOTES remain when you run check 
