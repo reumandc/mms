@@ -2,8 +2,8 @@
 #' 
 #' Resampling procedure for obtaining model weights with matrix regression models, similar to AIC weights.
 #' 
-#' @param mats A named list of matrices including the response and predictor variables for which to generate sub-lists and compute model scores using the mmsscore function. The response needs to be the first element.
-#' @param model.names A list of models tto run LNOCV on; if not specified runs all combinations of predictors. Specification needs to be as numeric values that correspond to mats elements. Examples of model specifications: 2, 2:3, c(2,3,5).
+#' @param mats A list of numeric matrices, all assumed to be the same dimensions and symmetric. Diagonals are not used. Off-diagonal non-finite values not allowed. The first entry taken to be the response.
+#' @param model.names A list of models to run LNOCV on. If not specified runs all combinations of predictors. Specification needs to be as numeric values that correspond to mats elements. Examples of model specifications: 2, 2:3, c(2,3,5).
 #' @param n The number of sampling locations to leave out, must be at least 2.
 #' @param maxruns The maximum number of leave-n-outs to do - to be used if choose(dim(mats[[1]]),n) is very large. NA to use (or try to use) all LNOs. If maxruns is a number,then LNOs are selected randomly and hence may include repeats.
 #' @param nrand The number of randomizations to perform
@@ -29,17 +29,20 @@
 
 mmsmodwts<-function(mats,model.names=NA,nrand,n,maxruns,progress=T)
 {
-  nsites<-dim(mats[[1]])[1]
+  #error checking
+  errcheck_mats("mmsrank",mats)
+  errcheck_n("mmsrank",dim(mats[[1]]),n,maxruns)
   
   #if the user does not provide a list of models names, make one with 
   #all names
   if(length(model.names)==1 && is.na(model.names)==T){
-    model.names<-list()
-    for(i in 1:(length(mats)-1))
-    {
-      model.names<-c(model.names,combn(2:length(mats),i,simplify = F))
-    }
+    model.names<-makenames(length(mats))
+  } else
+  {
+    errcheck_pred("mmsrank",model.names,length(mats))
   }
+  
+  nsites<-dim(mats[[1]])[1]
   
   #Do all the resamplings and associated rankings of models  
   random.results<-list()
@@ -62,7 +65,7 @@ mmsmodwts<-function(mats,model.names=NA,nrand,n,maxruns,progress=T)
       return(x)}) #assign NA to values that were self-comparisons
     
     #re-do model selection on randomized data 
-    random.results[[rand]]<-mmsrank(new.dat,model.names,
+    random.results[[rand]]<-mmsrank_int(new.dat,model.names,
                                         rank.mod=F,n=n,maxruns=maxruns) 
   }
   

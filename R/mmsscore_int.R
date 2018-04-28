@@ -26,8 +26,10 @@
 
 mmsscore_int<-function(mats,pred,n,maxruns) 
 {
+  #throw out what you don't need
   mats<-mats[c(1,pred)]
   pred<-2:length(mats)
+  
   d<-dim(mats[[1]])[1]
   
   #keep only the lower triangles
