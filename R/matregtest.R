@@ -57,18 +57,7 @@ matregtest<-function(mats,pred,drop,numperm)
   
   #get the regression formula for the complex model
   if(is.null(names(mats))){names(mats)<-c("y",paste0("x",1:length(pred)))}
-  form.com<-paste0(names(mats)[1],"~")
-  if (length(mats)<3)
-  {
-    form.com<-paste0(form,names(mats)[2])
-  }else
-  {
-    for (p.counter in 2:(length(mats)-1))
-    {
-      form.com<-paste0(form.com,names(mats)[p.counter],"+")
-    }
-    form.com<-paste0(form.com,names(mats)[length(mats)])
-  }
+  form.com<-makeform(mats)
   
   #do the regression for the complex model, keep the sum of squared residuals
   dfdat<-as.data.frame(sapply(mats,as.vector))
@@ -78,6 +67,7 @@ matregtest<-function(mats,pred,drop,numperm)
   #apply the randomization to the matrices that are dropped in the simpler model 
   #and then repeat the regression, numperm times
   ssr_perm<-NA*numeric(numperm)
+  d<-dim(mats[[1]])[1]
   for (permcount in 1:numperm)
   {
     #randomize the dropped variables

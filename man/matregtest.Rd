@@ -4,14 +4,12 @@
 \alias{matregtest}
 \title{Statistically compares two nested matrix models.}
 \usage{
-matregtest(mats, resp, pred, drop, numperm)
+matregtest(mats, pred, drop, numperm)
 }
 \arguments{
-\item{mats}{A named list of matrices, all assumed to be the same dimensions and symmetric. Diagonals are not used. NA/NaNs are allowed. (See \code{\link{table2matrix}}.)}
+\item{mats}{A list of numeric matrices, all assumed to be the same dimensions and symmetric. Diagonals are not used. Off-diagonal non-finite values not allowed. The first entry taken to be the response.}
 
-\item{resp}{The index in mats of the response variable (input is a numeric value, e.g. resp = 1)}
-
-\item{pred}{The indices in mats of predictor variables in the more complex of the two models to be compared, should not include resp. Input is numeric value(s), e.g. pred=1, pred =1:2, pred =c(1,2,4).}
+\item{pred}{The indices in mats of predictor variables in the more complex of the two models to be compared, should not include 1. Input is numeric value(s), e.g. pred=2, pred =2:3, pred =c(2,3,5).}
 
 \item{drop}{The indices in mats of predictor variables that are dropped to get from the complex to the simple model. Should be a subset of pred.}
 
@@ -27,7 +25,21 @@ matregtest(mats, resp, pred, drop, numperm)
 A function for doing matrix regression tests of a model against a nested model.
 }
 \examples{
-
+v2<-matrix(rnorm(100),10,10)
+v2<-v2+t(v2)
+v3<-matrix(rnorm(100),10,10)
+v3<-v3+t(v3)
+v4<-matrix(rnorm(100),10,10)
+v4<-v4+t(v4)
+err<-matrix(rnorm(100,sd=.05),10,10)
+err<-err+t(err)
+v1<-1*v2+2*v3+1+err
+mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
+resp<-1
+pred<-2:4
+drop<-4
+numperm<-100
+h<-matregtest(mats,pred,drop,numperm)
 }
 \author{
 Lei Zhao, \email{leizhao@ku.edu} ; Daniel Reuman, \email{reuman@ku.edu}

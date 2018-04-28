@@ -5,6 +5,9 @@
 #' @param lenmats The number of matrices in the \code{mats} argument provided to various other functions
 #' 
 #' @return \code{makenames} A list of numeric vectors containing the number 2:lenmats 
+#' 
+#' @author Daniel Reuman, \email{reuman@@ku.edu}
+
 
 makenames<-function(lenmats)
 {

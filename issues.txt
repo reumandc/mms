@@ -17,3 +17,5 @@ Did mmsmodwts break? I (Jon) get an error seemingly from mmsmodwts when I try to
   
 Ask Lei one more time to compare matregtest output to his function. Do this after writing unit tests for the error checking functions called
 at the beginning of matregtest
+
+not all the examples are filled in - fill them in

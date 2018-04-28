@@ -55,18 +55,7 @@ mmsscore_int<-function(mats,pred,n,maxruns)
   
   #get the regression formula
   if(is.null(names(mats))){names(mats)<-c("y",paste0("x",1:length(pred)))}
-  form<-paste(names(mats)[1],"~",sep='')
-  if (length(mats)<3)
-  {
-    form<-paste(form,names(mats)[2],sep='')
-  }else
-  {
-    for (p.counter in 2:(length(mats)-1))
-    {
-      form<-paste(form,names(mats)[p.counter],"+",sep='')
-    }
-    form<-paste(form,names(mats)[length(mats)],sep='')
-  }
+  form<-makeform(mats)
   
   #for each leave-n-out, get out-of-sample prediction accuracy
   res.lno<-c()

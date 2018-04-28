@@ -7,9 +7,9 @@
 mmsmodwts(mats, model.names = NA, nrand, n, maxruns, progress = T)
 }
 \arguments{
-\item{mats}{A named list of matrices including the response and predictor variables for which to generate sub-lists and compute model scores using the mmsscore function. The response needs to be the first element.}
+\item{mats}{A list of numeric matrices, all assumed to be the same dimensions and symmetric. Diagonals are not used. Off-diagonal non-finite values not allowed. The first entry taken to be the response.}
 
-\item{model.names}{A list of models tto run LNOCV on; if not specified runs all combinations of predictors. Specification needs to be as numeric values that correspond to mats elements. Examples of model specifications: 2, 2:3, c(2,3,5).}
+\item{model.names}{A list of models to run LNOCV on. If not specified runs all combinations of predictors. Specification needs to be as numeric values that correspond to mats elements. Examples of model specifications: 2, 2:3, c(2,3,5).}
 
 \item{nrand}{The number of randomizations to perform}
 
