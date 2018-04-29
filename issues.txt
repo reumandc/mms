@@ -1,7 +1,7 @@
 Are the argument defaults apparent in the help files?
 
 Ask Lei one more time to compare matregtest output to his function. Do this after writing unit tests for the error checking functions called
-at the beginning of matregtest
+at the beginning of matregtest - asked him, waiting for results
 
 not all the examples are filled in - fill them in
 
