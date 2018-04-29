@@ -37,3 +37,22 @@ test_that("test mmsrank_int for a semi-realistic case", {
   #the same output is obtained on future runs.
   expect_known_hash(h,hash="2d4617739698782f00a0f1c0c9f1ecea")    
 })
+
+test_that("test ancillary output for mmsrank_int",{
+  set.seed(401)
+  v2<-matrix(rnorm(100),10,10)
+  v3<-matrix(rnorm(100),10,10)
+  v4<-matrix(rnorm(100),10,10)
+  v1<-1*v2+2*v3+3*v4+1+matrix(rnorm(100,sd=.1),10,10)
+  mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
+  model.names<-list(2,3,4,c(2,3),c(2,4),c(3,4),c(2,3,4))
+  n<-2
+  maxruns<-40
+  rank.mod<-T
+  h<-mmsrank_int(mats=mats,model.names=model.names,n=n,maxruns=maxruns,rank.mod=rank.mod)
+  expect_equal(h$num.pos,rep(choose(10,2),7))
+  expect_equal(h$num.att,rep(maxruns,7))
+  expect_equal(h$num.rnk<=rep(maxruns,7),rep(T,7))
+  expect_equal(h$num.usd<=h$num.rnk,rep(T,7))
+})
+
