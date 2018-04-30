@@ -117,7 +117,7 @@ instructional example above, so I am not being so verbose here-->
 The lnocv score for an individual model is obtained using `mmsscore`, e.g. for a model in which dispersal is the sole predictor of population synchrony:
 
 ```{r}
-#modmats<-list(popsynch=popsynch, driversynch=driversynch, latentsynch=latentsynch, dispersal=simdat$disperdsal)
+#modmats<-list(popsynch=popsynch, driversynch=driversynch, latentsynch=latentsynch, dispersal=simdat$dispersal)
 #modscore<-mmsscore(mats=modmats[[c(1,4)]], pred=2, n=2, maxruns=100)
 ```
 
