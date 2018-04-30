@@ -118,14 +118,14 @@ The lnocv score for an individual model is obtained using `mmsscore`, e.g. for a
 
 ```{r}
 modmats<-list(popsynch=popsynch, driversynch=driversynch, latentsynch=latentsynch, dispersal=simdat$dispersal)
-modscore<-mmsscore(mats=list(modmats$popsynch, modmats$dispersal), pred=2, n=2, maxruns=100)
+modscore<-mmsscore(mats=list(modmats$popsynch, modmats$dispersal), pred=2, n=2, maxruns=500) 
 ```
 
 Note that in this case, and in those following, `maxruns` (and later, `nrand`) is set low so that these examples can be run quickly. We recommend increasing these. <!--but note that I need to use some trial and error to make sure these still give sensible answers-->
 A selection of models can be ranked using:
 
 ```{r}
-#modranks<-mmsranks(mats=modmats, model.names=NA, n=2, maxruns=100)
+modranks<-mmsrank(mats=modmats, model.names=NA, n=2, maxruns=200)
 ```
 
 Here, we use `model.nameds=NA` (the default) to test all combinations of predictors. 
@@ -136,13 +136,15 @@ The model reflecting this receives the highest rank.
 Model weights, corresponding to the frequency with which a model is the best performing in the candidate set are obtained using:
 
 ```{r}
-#modweights<-mmsmodwts(mats=modmats, n=2, maxruns=100, nrand=100)
+modweights<-mmsmodwts(mats=modmats, n=2, maxruns=200, nrand=50)
+print(modweights)
 ```
 
 Like for rankings, the correct model receives the highest weight. The model weights can be used further to generate variable importance weights:
 
 ```{r}
-#varimp<-mmsvarwts(pred=2:4, weights=modweights, varnames=names(modmats))
+varimp<-mmsvarwts(pred=2:4, weights=modweights, varnames=names(modmats))
+print(varimp)
 ```
 
 The algorithm correctly identifies the operating environmental driver as the most important predictor.

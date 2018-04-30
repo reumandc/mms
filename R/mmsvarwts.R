@@ -29,7 +29,7 @@ mmsvarwts<-function(pred, weights, varnames=NULL){
   }
   
   weights$top.frac<-weights$freq.top/sum(weights$freq.top)
-  weights$model.names.char<-as.character(weights$model.names)
+  #weights$model.names.char<-as.character(weights$model.names)
   #predinds<-2:length(varnames)
   #prednames<-varnames[predinds]
   if(is.null(varnames))
@@ -44,11 +44,12 @@ mmsvarwts<-function(pred, weights, varnames=NULL){
   summed.weights<-rep(NA, length(pred))
   for(p in pred){
     
-    modinds<-NULL
+    #modinds<-NULL
+    modinds<-grepl(p, weights$model.names)
     
-    for(mod in weights$model.names.char){
-      modinds<-c(modinds, p %in% eval(parse(text=mod)))
-    }
+    # for(mod in weights$model.names.char){
+    #   modinds<-c(modinds, p %in% eval(parse(text=mod)))
+    # }
     
     summed.weights[p]<-sum(weights$top.frac[modinds])
   }
