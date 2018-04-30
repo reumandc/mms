@@ -97,8 +97,8 @@ The data are available using:
 
 ```{r}
 library(mms)
-#data(simdat)
-#attach(simdat)
+data(simdat)
+attach(simdat)
 ```
 
 The object 'simdat' is a list containing four matrices. 
@@ -107,9 +107,9 @@ The fourth is the $P$ by $P$ dispersal matrix, $D$.
 We then compute synchrony matrices using Pearson correlations:
 
 ```{r}
-#popsynch<-cor(t(simdat$pop), method="pearson")
-#driversynch<-cor(t(simdat$driver), method="pearson")
-#latentsynch<-cor(t(simdat$latent), method="pearson")
+popsynch<-cor(t(simdat$pop), method="pearson")
+driversynch<-cor(t(simdat$driver), method="pearson")
+latentsynch<-cor(t(simdat$latent), method="pearson")
 ```
 
 <!--I am for now assuming, pending an answer on the KY lake data, that there will be a more
@@ -117,8 +117,8 @@ instructional example above, so I am not being so verbose here-->
 The lnocv score for an individual model is obtained using `mmsscore`, e.g. for a model in which dispersal is the sole predictor of population synchrony:
 
 ```{r}
-#modmats<-list(popsynch=popsynch, driversynch=driversynch, latentsynch=latentsynch, dispersal=simdat$dispersal)
-#modscore<-mmsscore(mats=modmats[[c(1,4)]], pred=2, n=2, maxruns=100)
+modmats<-list(popsynch=popsynch, driversynch=driversynch, latentsynch=latentsynch, dispersal=simdat$dispersal)
+modscore<-mmsscore(mats=list(modmats$popsynch, modmats$dispersal), pred=2, n=2, maxruns=100)
 ```
 
 Note that in this case, and in those following, `maxruns` (and later, `nrand`) is set low so that these examples can be run quickly. We recommend increasing these. <!--but note that I need to use some trial and error to make sure these still give sensible answers-->
