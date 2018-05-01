@@ -18,12 +18,21 @@ test_that("test error catching functionality of mssvarwts", {
  
 })
 
-test_that("test mmwvarwts in an arbitrary test case that should ome out the same on future runs", {
-  set.seed(5117)
-  pred<-c(2,3)
-  varnames<-c("response", "predictor1", "predictor2")
-  wts<-list(model.names=c("2","3","2:3"),
-          freq.top=rpois(3,3))
-  h<-mmsvarwts(pred, wts, varnames)
-  expect_known_hash(h, hash="ebcf5e84286c5f297e07b61221b52a0c")        
+test_that("further tests of mmsvarwts", {
+  weights<-data.frame(model.names=c("2","3","2,3"),freq.top=c(100,200,300),stringsAsFactors = F)
+  h<-mmsvarwts(pred=c(2,3),weights=weights)
+  expect_equal(h$summed.weights[h$prednames=="2"],2/3)
+  expect_equal(h$summed.weights[h$prednames=="3"],5/6)
+  
+  weights<-data.frame(model.names=c("2","3","2,3"),freq.top=c(100,200,300),stringsAsFactors = F)
+  h<-mmsvarwts(pred=c(2,3),weights=weights)
+  expect_equal(h$summed.weights[h$prednames=="2"],2/3)
+  expect_equal(h$summed.weights[h$prednames=="3"],5/6)
+
+  weights<-data.frame(model.names=c("2","3","4","5","2,4","2,3,4,5"),
+                      freq.top=c(100,200,100,500,250,600),stringsAsFactors = F)
+  h<-mmsvarwts(pred=c(2,3,4,5),weights=weights)
+  expect_equal(h$summed.weights[h$prednames=="2"],(100+250+600)/sum(weights$freq.top))  
+  expect_equal(h$summed.weights[h$prednames=="3"],(200+600)/sum(weights$freq.top))  
+  expect_equal(h$summed.weights[h$prednames=="4"],(100+250+600)/sum(weights$freq.top))  
 })

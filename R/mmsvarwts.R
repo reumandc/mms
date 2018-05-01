@@ -17,19 +17,28 @@ mmsvarwts<-function(pred, weights, varnames=NULL){
   
   #Check inputs
   if(!is.null(varnames)){
+    #***DAN: Jon, I don't get why length(pred should be one less than 
+    #length(varnames) instead of the same length, when it is listed on
+    #line 7 above as a character vector of predictor names. I guess it
+    #is meant to be a character vector of all variable names, including
+    #the response? I suggest you make it predictor names only, otherwise
+    #it is confusing what the additional element of varnames is and the 
+    #user does not realize it is supposed to be the first element.
     if(length(pred) != length(varnames)-1)
     {
       stop("Error in mmsvarwts: varnames must be one element longer than pred")  
     }
   }
   
-  if(!"model.names" %in% names(weights) | !"freq.top" %in% names(weights))
+  if(!"model.names" %in% names(weights) || !"freq.top" %in% names(weights))
   {
-    stop("Error in msvarwts: weights must contain model.names and freq.top")    
+    stop("Error in msvarwts: weights must contain model.names and freq.top; it should be output of mmsmodwts")    
   }
   
   weights$top.frac<-weights$freq.top/sum(weights$freq.top)
   #weights$model.names.char<-as.character(weights$model.names)
+  #***DAN: Jon, I think this following line, curently commented, is what you need
+  #model.names.num<-transmn(weights$model.names,"char")
   #predinds<-2:length(varnames)
   #prednames<-varnames[predinds]
   if(is.null(varnames))

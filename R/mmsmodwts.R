@@ -67,7 +67,8 @@ mmsmodwts<-function(mats,model.names=NA,nrand,n,maxruns,progress=T)
   }
   
   #collate the top models and other information
-  modsel.stats<-data.frame(model.names=unlist(lapply(model.names, paste, collapse=",")),
+  modsel.stats<-data.frame(model.names=transmn(model.names,"numvect"),
+                             #unlist(lapply(model.names, paste, collapse=",")),
                            freq.top=rep(0,length(model.names)),
                            num.pos=rep(0,length(model.names)),
                            num.att=rep(0,length(model.names)),
