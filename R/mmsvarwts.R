@@ -4,7 +4,7 @@
 #' 
 #' @param pred a numeric vector giving indices of predictor variables
 #' @param weights a data frame of model weights, output from \code{mmsmodwts}
-#' @param varnames a character vector of predictor names. If NULL (the default), the indices in \code{pred} are used as names
+#' @param prednames a character vector of predictor names. If NULL (the default), the indices in \code{pred} are used as names
 #' 
 #' @return an object of class dataframe consisting of summed variable weights
 #' @author Jon Walter, \email{jaw3es@@virginia.edu}
@@ -13,7 +13,7 @@
 #' @export
 
 
-mmsvarwts<-function(pred, weights, varnames=NULL){
+mmsvarwts<-function(pred, weights, prednames=NULL){
   
   #Check inputs
   if(!is.null(varnames)){
@@ -24,9 +24,9 @@ mmsvarwts<-function(pred, weights, varnames=NULL){
     #the response? I suggest you make it predictor names only, otherwise
     #it is confusing what the additional element of varnames is and the 
     #user does not realize it is supposed to be the first element.
-    if(length(pred) != length(varnames)-1)
+    if(length(pred) != length(varnames))
     {
-      stop("Error in mmsvarwts: varnames must be one element longer than pred")  
+      stop("Error in mmsvarwts: prednames must be the same length as pred")  
     }
   }
   

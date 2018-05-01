@@ -118,7 +118,8 @@ The lnocv score for an individual model is obtained using `mmsscore`, e.g. for a
 
 ```{r}
 modmats<-list(popsynch=popsynch, driversynch=driversynch, latentsynch=latentsynch, dispersal=simdat$dispersal)
-modscore<-mmsscore(mats=list(modmats$popsynch, modmats$dispersal), pred=2, n=2, maxruns=500) 
+modscore<-mmsscore(mats=list(modmats$popsynch, modmats$dispersal), pred=2, n=2, maxruns=500)
+print(modscore)
 ```
 
 Note that in this case, and in those following, `maxruns` (and later, `nrand`) is set low so that these examples can be run quickly. We recommend increasing these. <!--but note that I need to use some trial and error to make sure these still give sensible answers-->
@@ -126,6 +127,7 @@ A selection of models can be ranked using:
 
 ```{r}
 modranks<-mmsrank(mats=modmats, model.names=NA, n=2, maxruns=200)
+print(modranks)
 ```
 
 Here, we use `model.nameds=NA` (the default) to test all combinations of predictors. 
