@@ -145,7 +145,7 @@ print(modweights)
 Like for rankings, the correct model receives the highest weight. The model weights can be used further to generate variable importance weights:
 
 ```{r}
-varimp<-mmsvarwts(pred=2:4, weights=modweights, varnames=names(modmats))
+varimp<-mmsvarwts(pred=2:4, weights=modweights, prednames=names(modmats)[-1])
 print(varimp)
 ```
 
