@@ -20,7 +20,7 @@ test_that("test mmssmodwts in an arbitrary test case that should come out the sa
   #This should have freq.top larger for 2,3,4 than for other models. I checked that
   #visually for this seed and it worked, so now just make sure future runs give
   #the same answer. Hash below was obtained using digest::digest(h).
-  expect_known_hash(h,hash="ac9165c2bae4bc79ef41f41504201659")   
+  expect_known_hash(h,hash="d534c61c9ee40b1f4a16a4f0c56c97e5")   
 
   #test ancillary outputs
   expect_equal(h$num.pos,rep(nrand*choose(10,2),7))

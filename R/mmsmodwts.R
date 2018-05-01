@@ -9,7 +9,7 @@
 #' @param nrand The number of randomizations to perform
 #' @param progress T/F, should progress be printed to the screen? Default T.
 #' 
-#' @return \code{mmsmodwts} return an object of class list consisting of 
+#' @return \code{mmsmodwts} return an object of class data frame consisting of 
 #' \item{model.names}{The name of the model, based on the indices of included predictors in mats}
 #' \item{freq.top}{The number of times it was the top model, across randomizations}
 #' \item{num.pos}{The possible number of LNOs for the given n and number of locations}
@@ -72,7 +72,7 @@ mmsmodwts<-function(mats,model.names=NA,nrand,n,maxruns,progress=T)
                            num.pos=rep(0,length(model.names)),
                            num.att=rep(0,length(model.names)),
                            num.rnk=rep(0,length(model.names)),
-                           num.usd=rep(0,length(model.names)))
+                           num.usd=rep(0,length(model.names)),stringsAsFactors = F)
   for(i in 1:length(random.results))
   {
     bestind<-which(random.results[[i]]$lno.score==
