@@ -1,6 +1,6 @@
 context("mmsvarwts")
 
-test_that("test error catching functionality of mssvarwts", {
+test_that("test error catching functionality of mmsvarwts", {
  #test 1
  pred<-c(2,3)
  prednames<-c("predictor1")
@@ -11,7 +11,7 @@ test_that("test error catching functionality of mssvarwts", {
               "Error in mmsvarwts: prednames must be the same length as pred", fixed=T)
  #test 2
  pred<-c(2,3)
- varnames<-c("predictor1","predictor2")
+ prednames<-c("predictor1","predictor2")
  h<-list(model.names=c("2","3","2:3"))
  expect_error(mmsvarwts(pred, h, prednames),
               "Error in msvarwts: weights must contain model.names and freq.top", fixed=T)

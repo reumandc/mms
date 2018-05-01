@@ -82,7 +82,8 @@ w_P(t)
 \right],
 \end{equation}
 
-Here we consider a scenario in which spatial structure in population dynamics (i.e., geography of synchrony) arises from spatial structure in an environmental driver (mechanism A in Walter et al. [2017]). 
+Here we consider a scenario in which spatial structure in population dynamics (i.e., geography of synchrony) arises from spatial structure in an environmental driver. 
+The data produced are identical to those used to present "mechanism A"" in Walter et al. (2017). 
 We simulated population dynamics in $P=16$ locations divided between two disjoint eight-location sets, $S_1$ and $S_2$. $S_1$ was {1,...,8} and $S_2$ was {9,...,16}. 
 All locations had identical 2nd-order density dependence with $m_{i1} \approx 0.375$ and $m_{i2} \aprrox-0.368$. These parameters produce periodic oscillations with a dominant period length of $\approx$ 5 time steps. 
 We simulated three environmetnal drivers: an "operating" driver that strongly influences population dynamics (i.e., $q_{i1}^{(1)}=1$) and is spatially structured; a "latent" driver that is also spatially structured but does not influence population dynamics (i.e., $q_{i1}^{(2)}=0$); and a third driver 
