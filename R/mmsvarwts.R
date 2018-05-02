@@ -4,7 +4,7 @@
 #' 
 #' @param pred a numeric vector giving indices of predictor variables
 #' @param weights a data frame of model weights, output from \code{mmsmodwts}
-#' @param varnames a character vector of predictor names. If NULL (the default), the indices in \code{pred} are used as names
+#' @param prednames a character vector of predictor names. If NULL (the default), the indices in \code{pred} are used as names
 #' 
 #' @return an object of class dataframe consisting of summed variable weights
 #' @author Jon Walter, \email{jaw3es@@virginia.edu}
@@ -13,20 +13,14 @@
 #' @export
 
 
-mmsvarwts<-function(pred, weights, varnames=NULL){
+mmsvarwts<-function(pred, weights, prednames=NULL){
   
   #Check inputs
-  if(!is.null(varnames)){
-    #***DAN: Jon, I don't get why length(pred should be one less than 
-    #length(varnames) instead of the same length, when it is listed on
-    #line 7 above as a character vector of predictor names. I guess it
-    #is meant to be a character vector of all variable names, including
-    #the response? I suggest you make it predictor names only, otherwise
-    #it is confusing what the additional element of varnames is and the 
-    #user does not realize it is supposed to be the first element.
-    if(length(pred) != length(varnames)-1)
+  if(!is.null(prednames)){
+    
+    if(length(pred) != length(prednames))
     {
-      stop("Error in mmsvarwts: varnames must be one element longer than pred")  
+      stop("Error in mmsvarwts: prednames must be the same length as pred")  
     }
   }
   
@@ -36,32 +30,20 @@ mmsvarwts<-function(pred, weights, varnames=NULL){
   }
   
   weights$top.frac<-weights$freq.top/sum(weights$freq.top)
-  #weights$model.names.char<-as.character(weights$model.names)
-  #***DAN: Jon, I think this following line, curently commented, is what you need
-  #model.names.num<-transmn(weights$model.names,"char")
-  #predinds<-2:length(varnames)
-  #prednames<-varnames[predinds]
-  if(is.null(varnames))
+  model.names.num<-mms:::transmn(weights$model.names,"char")
+
+  if(is.null(prednames))
   {
     prednames<-as.character(pred)
   }
-  else{
-    prednames<-varnames[pred]
-  }
   
-  #summed.weights<-rep(NA, length(predinds))
-  summed.weights<-rep(NA, length(pred))
-  for(p in pred){
-    
-    #modinds<-NULL
-    modinds<-grepl(p, weights$model.names)
-    
-    # for(mod in weights$model.names.char){
-    #   modinds<-c(modinds, p %in% eval(parse(text=mod)))
-    # }
-    
-    summed.weights[p]<-sum(weights$top.frac[modinds])
+  summed.weights<-NULL
+  for(p in pred)
+  {
+    modinds<-grepl(p, model.names.num)
+    modinds<-unlist(lapply(model.names.num, function(mod,p){p %in% mod}, p))
+    summed.weights<-c(summed.weights, sum(weights$top.frac[modinds]))
   }
   return(data.frame(prednames=prednames, summed.weights=
-                      na.omit(summed.weights)))
+                      summed.weights, stringsAsFactors = FALSE))
 }

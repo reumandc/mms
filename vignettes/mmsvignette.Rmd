@@ -82,7 +82,8 @@ w_P(t)
 \right],
 \end{equation}
 
-Here we consider a scenario in which spatial structure in population dynamics (i.e., geography of synchrony) arises from spatial structure in an environmental driver (mechanism A in Walter et al. [2017]). 
+Here we consider a scenario in which spatial structure in population dynamics (i.e., geography of synchrony) arises from spatial structure in an environmental driver. 
+The data produced are identical to those used to present "mechanism A"" in Walter et al. (2017). 
 We simulated population dynamics in $P=16$ locations divided between two disjoint eight-location sets, $S_1$ and $S_2$. $S_1$ was {1,...,8} and $S_2$ was {9,...,16}. 
 All locations had identical 2nd-order density dependence with $m_{i1} \approx 0.375$ and $m_{i2} \aprrox-0.368$. These parameters produce periodic oscillations with a dominant period length of $\approx$ 5 time steps. 
 We simulated three environmetnal drivers: an "operating" driver that strongly influences population dynamics (i.e., $q_{i1}^{(1)}=1$) and is spatially structured; a "latent" driver that is also spatially structured but does not influence population dynamics (i.e., $q_{i1}^{(2)}=0$); and a third driver 
@@ -118,14 +119,16 @@ The lnocv score for an individual model is obtained using `mmsscore`, e.g. for a
 
 ```{r}
 modmats<-list(popsynch=popsynch, driversynch=driversynch, latentsynch=latentsynch, dispersal=simdat$dispersal)
-modscore<-mmsscore(mats=list(modmats$popsynch, modmats$dispersal), pred=2, n=2, maxruns=500) 
+modscore<-mmsscore(mats=list(modmats$popsynch, modmats$dispersal), pred=2, n=2, maxruns=500)
+print(modscore)
 ```
 
-Note that in this case, and in those following, `maxruns` (and later, `nrand`) is set low so that these examples can be run quickly. We recommend increasing these. <!--but note that I need to use some trial and error to make sure these still give sensible answers-->
+Note that in this case, and in those following, `maxruns` (and later, `nrand`) is set relatively low so that these examples can be run quickly. We recommend increasing these. 
 A selection of models can be ranked using:
 
 ```{r}
 modranks<-mmsrank(mats=modmats, model.names=NA, n=2, maxruns=200)
+print(modranks)
 ```
 
 Here, we use `model.nameds=NA` (the default) to test all combinations of predictors. 
@@ -143,7 +146,7 @@ print(modweights)
 Like for rankings, the correct model receives the highest weight. The model weights can be used further to generate variable importance weights:
 
 ```{r}
-varimp<-mmsvarwts(pred=2:4, weights=modweights, varnames=names(modmats))
+varimp<-mmsvarwts(pred=2:4, weights=modweights, prednames=names(modmats)[-1])
 print(varimp)
 ```
 

@@ -1,30 +1,30 @@
 context("mmsvarwts")
 
-test_that("test error catching functionality of mssvarwts", {
+test_that("test error catching functionality of mmsvarwts", {
  #test 1
  pred<-c(2,3)
- varnames<-c("response","predictor1")
+ prednames<-c("predictor1")
  h<-list(model.names=c("2","3","2:3"),
          freq.top=rpois(3,3)
  )
- expect_error(mmsvarwts(pred, h, varnames),
-              "Error in mmsvarwts: varnames must be one element longer than pred", fixed=T)
+ expect_error(mmsvarwts(pred, h, prednames),
+              "Error in mmsvarwts: prednames must be the same length as pred", fixed=T)
  #test 2
  pred<-c(2,3)
- varnames<-c("response","predictor1","predictor2")
+ prednames<-c("predictor1","predictor2")
  h<-list(model.names=c("2","3","2:3"))
- expect_error(mmsvarwts(pred, h, varnames),
+ expect_error(mmsvarwts(pred, h, prednames),
               "Error in msvarwts: weights must contain model.names and freq.top", fixed=T)
  
 })
 
 test_that("further tests of mmsvarwts", {
-  weights<-data.frame(model.names=c("2","3","2,3"),freq.top=c(100,200,300),stringsAsFactors = F)
+  weights<-data.frame(model.names=c("2","3","2:3"),freq.top=c(100,200,300),stringsAsFactors = F)
   h<-mmsvarwts(pred=c(2,3),weights=weights)
   expect_equal(h$summed.weights[h$prednames=="2"],2/3)
   expect_equal(h$summed.weights[h$prednames=="3"],5/6)
   
-  weights<-data.frame(model.names=c("2","3","2,3"),freq.top=c(100,200,300),stringsAsFactors = F)
+  weights<-data.frame(model.names=c("2","3","2:3"),freq.top=c(100,200,300),stringsAsFactors = F)
   h<-mmsvarwts(pred=c(2,3),weights=weights)
   expect_equal(h$summed.weights[h$prednames=="2"],2/3)
   expect_equal(h$summed.weights[h$prednames=="3"],5/6)
