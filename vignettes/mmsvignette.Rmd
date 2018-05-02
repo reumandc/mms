@@ -1,14 +1,25 @@
 ---
-title: "Matrix model selection package"
+title: "Matrix model selection (mms) package vignette"
 author: "Jonathan Walter, Thomas Anderson, Lei Zhao, Daniel Reuman"
 date: "`r Sys.Date()`"
-output: pdf_document
+geometry: "left=1cm,right=1cm,top=2.5cm,bottom=2.8cm"
+
+output: 
+  pdf_document:
+    number_sections: yes
+    keep_tex: yes
+    fig_caption: yes
+link-citations: True
+urlcolor: blue
+
+bibliography: mmsvignette_refs.bib 
+
 vignette: >
-  %\VignetteIndexEntry{"mms"}
+  %\VignetteIndexEntry{"Matrix model selection package vignette"}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-<!--rmarkdown::html_vignette-->
+
 <!--Thoughts on what should maybe be included:
 Brief qualitative intro to matrix model selection, with references
 Reference to Jon's paper, and Tom's Oikos and L&O (hopefully) papers
@@ -23,15 +34,41 @@ Don't forget the new function matregtest
 
 The `mms` package provides tools to 
 do model selection among matrix models via a 
-leave-n-out cross validation and resampling approach. The first section
+leave-n-out cross validation and resampling approach. Section \ref{sect:intromm}
 provides a statement of what matrix modelling is, with references to
 background materials. Section \ref{sect:exdata} describes an example
 dataset that is used in section \ref{sect:demoondata} to illustrate
-
-
+how `mms` package functions are used. Section \ref{sect:methoddetails}
+provides links to a detailed desription of the model selection methods.
+Section \ref{sect:simstudy} provides a brief simulation study
+demonstrating the effectiveness of the methods.
 
 # Brief introduction to matrix regression\label{sect:intromm}
-If $i=1,\ldots,P$ are sampling locations or other identifiers and matrices $M_
+If $i=1,\ldots,P$ are sampling locations or other identifiers and matrices 
+$R$ and $M_1,\ldots,M_n$ quantify different measures of pairwise similarities
+or differences between these identifiers, then matrix regression extends the
+widely used Mantel test by assessing the relationship between the response 
+variable $R$ and the multiple predictor matrices $M_i$, while properly
+accounting for the non-independence that is intrisic to pairwise 
+comparison matrices [@legendre_1994; @lichstein_2007; @walter_2017].
+For instance, if time series of populations were measured over the same 
+times in locations $1,\ldots,P$ then the $ij^{\text{th}}$ entry of $R$ 
+could be a measure (e.g., correlation) of the synchrony through time 
+between the population time series
+of locations $i$ and $j$. The $ij^{\text{th}}$ entry of $M_1$ could contain distances 
+between the locations $i$ and $j$. And the $ij^{\text{th}}$ entries of 
+$M_l$ for $l=2,\ldots,n$ could contain correlations of time series of 
+different environmental variables (one variable for each $l=2,\ldots,n$)
+measured in the same locations and times. One can perform tests of the 
+statistical importance of any $M_i$ ($i=1,\ldots,n$) as a predictor of $R$ 
+while controlling for the other predictors. The references cited above 
+give background and the `ecodist` provides code. Matric regression
+is increasingly used in ecology and other fields 
+<!--DAN: add refs to our other papers, perhaps Tom's is the only, and also
+to Haynes, Legendre and Legendre 1998, maybe look for more refs in Tom's Oikos paper-->
+
+
+
 
 # Example data\label{sect:exdata}
 
@@ -143,8 +180,7 @@ Model weights, corresponding to the frequency with which a model is the best per
 <!--Probably you should get rid of the chaching before you are through,
 but it helps with editing the latex-->
 
-```{r call_mmsmodwts}
-#, cache=T, cache.extra=list(modmats)}
+```{r call_mmsmodwts, cache=T, cache.extra=list(modmats)}
 modweights<-mmsmodwts(mats=modmats, n=2, maxruns=200, nrand=50)
 print(modweights)
 ```
