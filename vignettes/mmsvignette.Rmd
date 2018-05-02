@@ -3,6 +3,10 @@ title: "Matrix model selection package"
 author: "Jonathan Walter, Thomas Anderson, Lei Zhao, Daniel Reuman"
 date: "`r Sys.Date()`"
 output: pdf_document
+vignette: >
+  %\VignetteIndexEntry{Matrix model selection package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
