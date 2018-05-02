@@ -13,8 +13,8 @@ Here is how you install the package currently, with vignettes, and look at the v
 library(devtools)
 install_github("reumandc/mms",build_vignettes=TRUE)
 library(mms)
-browseVignettes("mms")
-#then click on html
+browseVignettes("mms") #then click on html
+
 
 If this does not work, I have found the process can be fragile and you can try:
 detaching the package (unclick it under the packages tab in R studio)

@@ -4,7 +4,7 @@ author: "Jonathan Walter, Thomas Anderson, Lei Zhao, Daniel Reuman"
 date: "`r Sys.Date()`"
 output: pdf_document
 vignette: >
-  %\VignetteIndexEntry{mms}
+  %\VignetteIndexEntry{"mms"}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
