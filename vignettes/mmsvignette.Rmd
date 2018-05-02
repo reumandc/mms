@@ -2,20 +2,13 @@
 title: "Matrix model selection package"
 author: "Jonathan Walter, Thomas Anderson, Lei Zhao, Daniel Reuman"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: pdf_document
 vignette: >
-  %\VignetteIndexEntry{Matrix model selection package}
+  %\VignetteIndexEntry{mms}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r setup, include = FALSE}
-#knitr::opts_chunk$set(
-#  collapse = TRUE,
-#  comment = "#>"
-#)
-```
-
+<!--rmarkdown::html_vignette-->
 <!--Thoughts on what should maybe be included:
 Brief qualitative intro to matrix model selection, with references
 Reference to Jon's paper, and Tom's Oikos and L&O (hopefully) papers
@@ -28,8 +21,13 @@ Show the use of all the functions that the user needs on the data
 Don't forget the new function matregtest
 -->
 
-The mms package provides tools to do model selection among matrix models via a 
-leave-n-out cross validation and resampling approach.
+The `mms` package provides tools to 
+do model selection among matrix models via a 
+leave-n-out cross validation and resampling approach. The first section
+provides a statement of what matrix modelling is, with references to
+background materials. Section \ref{sect:exdata} describes an example
+dataset that is used in section \ref{sect:demoondata} to illustrate
+
 
 
 # Brief introduction to matrix regression\label{sect:intromm}
@@ -100,7 +98,7 @@ The model was run for 150 time steps with a 100 time step burn-in period.
 We use simulated data to define a response matrix and multiple predictors, including a true predictor representing the operating mechanism in the simulation described above, and two spurious predictors representing latent (non-operating) possible mechanisms. 
 The data are available using:
 
-```{r}
+```{r load_package_and_data}
 library(mms)
 data(simdat)
 attach(simdat)
@@ -111,7 +109,7 @@ The first three are $P$ by $t$ matrices giving, respectively, abundances $w_{i}(
 The fourth is the $P$ by $P$ dispersal matrix, $D$. 
 We then compute synchrony matrices using Pearson correlations:
 
-```{r}
+```{r get_cor_mats}
 popsynch<-cor(t(simdat$pop), method="pearson")
 driversynch<-cor(t(simdat$driver), method="pearson")
 latentsynch<-cor(t(simdat$latent), method="pearson")
@@ -121,7 +119,7 @@ latentsynch<-cor(t(simdat$latent), method="pearson")
 instructional example above, so I am not being so verbose here-->
 The lnocv score for an individual model is obtained using `mmsscore`, e.g. for a model in which dispersal is the sole predictor of population synchrony:
 
-```{r}
+```{r call_mmsscore}
 modmats<-list(popsynch=popsynch, driversynch=driversynch, latentsynch=latentsynch, dispersal=simdat$dispersal)
 modscore<-mmsscore(mats=list(modmats$popsynch, modmats$dispersal), pred=2, n=2, maxruns=500)
 print(modscore)
@@ -130,7 +128,7 @@ print(modscore)
 Note that in this case, and in those following, `maxruns` (and later, `nrand`) is set relatively low so that these examples can be run quickly. We recommend increasing these. 
 A selection of models can be ranked using:
 
-```{r}
+```{r call_mmsranks}
 modranks<-mmsrank(mats=modmats, model.names=NA, n=2, maxruns=200)
 print(modranks)
 ```
@@ -142,14 +140,18 @@ The model reflecting this receives the highest rank.
 
 Model weights, corresponding to the frequency with which a model is the best performing in the candidate set are obtained using:
 
-```{r}
+<!--Probably you should get rid of the chaching before you are through,
+but it helps with editing the latex-->
+
+```{r call_mmsmodwts}
+#, cache=T, cache.extra=list(modmats)}
 modweights<-mmsmodwts(mats=modmats, n=2, maxruns=200, nrand=50)
 print(modweights)
 ```
 
 Like for rankings, the correct model receives the highest weight. The model weights can be used further to generate variable importance weights:
 
-```{r}
+```{r call_mmsvarwts}
 varimp<-mmsvarwts(pred=2:4, weights=modweights, prednames=names(modmats)[-1])
 print(varimp)
 ```
