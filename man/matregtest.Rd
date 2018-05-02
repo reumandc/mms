@@ -38,8 +38,11 @@ mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
 resp<-1
 pred<-2:4
 drop<-4
-numperm<-100
+numperm<-100 
+#in a real application numperm should typically 
+#be at least 1000
 h<-matregtest(mats,pred,drop,numperm)
+
 }
 \author{
 Lei Zhao, \email{leizhao@ku.edu} ; Daniel Reuman, \email{reuman@ku.edu}

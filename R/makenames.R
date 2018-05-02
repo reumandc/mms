@@ -7,6 +7,8 @@
 #' @return \code{makenames} A list of numeric vectors containing the number 2:lenmats 
 #' 
 #' @author Daniel Reuman, \email{reuman@@ku.edu}
+#' 
+#' @importFrom utils combn
 
 
 makenames<-function(lenmats)
@@ -14,7 +16,7 @@ makenames<-function(lenmats)
   model.names<-list()
   for(i in 1:(lenmats-1))
   {
-    model.names<-c(model.names,combn(2:lenmats,i,simplify = F))
+    model.names<-c(model.names,utils::combn(2:lenmats,i,simplify = F))
   }
   
   return(model.names)

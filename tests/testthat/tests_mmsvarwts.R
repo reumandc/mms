@@ -18,17 +18,12 @@ test_that("test error catching functionality of mmsvarwts", {
  
 })
 
-test_that("further tests of mmsvarwts", {
+test_that("tests of functionality of mmsvarwts", {
   weights<-data.frame(model.names=c("2","3","2:3"),freq.top=c(100,200,300),stringsAsFactors = F)
   h<-mmsvarwts(pred=c(2,3),weights=weights)
   expect_equal(h$summed.weights[h$prednames=="2"],2/3)
   expect_equal(h$summed.weights[h$prednames=="3"],5/6)
   
-  weights<-data.frame(model.names=c("2","3","2:3"),freq.top=c(100,200,300),stringsAsFactors = F)
-  h<-mmsvarwts(pred=c(2,3),weights=weights)
-  expect_equal(h$summed.weights[h$prednames=="2"],2/3)
-  expect_equal(h$summed.weights[h$prednames=="3"],5/6)
-
   weights<-data.frame(model.names=c("2","3","4","5","c(2,4)","2:5"),
                       freq.top=c(100,200,100,500,250,600),stringsAsFactors = F)
   h<-mmsvarwts(pred=c(2,3,4,5),weights=weights)

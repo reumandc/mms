@@ -1,8 +1,8 @@
 Are the argument defaults apparent in the help files?
 
-Ask Lei one more time to compare matregtest output to his function. Do this after writing unit tests for the error checking functions called
-at the beginning of matregtest - asked him, waiting for results
-
-not all the examples are filled in - fill them in
-
 some NOTES remain when you run check 
+one of the remaining notes that occurs when you run check, namely to add dependencies to the description. I did this throug roxygen2, but have not rerun check to see if it worked to check's satisfaction. At the same time all external functions identified by check are now called using ::, so I hope dependencies are now identified and check should not complain but need to check
+
+In mmsvarwts Jon used mms:::transmn to call the internal function transmn. Should we be doing this uniformly to call internal (:::) and external (::) functions in this and other packages whenever we call such functions? I got rid of the ::: because running check taught me that you do not need to use ::: for functions (internal or external) within the same package. Also, CRAN apparently does not allow :::
+
+finish the vignette

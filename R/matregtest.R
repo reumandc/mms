@@ -28,9 +28,13 @@
 #' resp<-1
 #' pred<-2:4
 #' drop<-4
-#' numperm<-100
+#' numperm<-100 
+#' #in a real application numperm should typically 
+#' #be at least 1000
 #' h<-matregtest(mats,pred,drop,numperm)
-#
+#' 
+#' @importFrom stats lm na.omit
+#' 
 #' @export
 
 
@@ -61,7 +65,7 @@ matregtest<-function(mats,pred,drop,numperm)
   
   #do the regression for the complex model, keep the sum of squared residuals
   dfdat<-as.data.frame(sapply(mats,as.vector))
-  mod<-lm(form.com,dfdat,na.action=na.omit)
+  mod<-stats::lm(form.com,dfdat,na.action=stats::na.omit)
   ssr_dat<-(sum((mod$residuals)^2))/2 #divide by 2 because we have the upper and lower triangle
   
   #apply the randomization to the matrices that are dropped in the simpler model 
@@ -79,7 +83,7 @@ matregtest<-function(mats,pred,drop,numperm)
     
     #do the regression
     dfdat<-as.data.frame(sapply(mats,as.vector))
-    mod<-lm(form.com,dfdat,na.action=na.omit)
+    mod<-stats::lm(form.com,dfdat,na.action=stats::na.omit)
     ssr_perm[permcount]<-(sum((mod$residuals)^2))/2 #divide by 2 because we have the upper and lower triangle
   }
   

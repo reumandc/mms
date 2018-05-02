@@ -1,19 +1,15 @@
 ---
 title: "Matrix model selection package"
-author: "Jonathan Walter, Thomas Anderson, Daniel Reuman"
+author: "Jonathan Walter, Thomas Anderson, Lei Zhao, Daniel Reuman"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Matrix model selection package}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: pdf_document
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+#knitr::opts_chunk$set(
+#  collapse = TRUE,
+#  comment = "#>"
+#)
 ```
 
 <!--Thoughts on what should maybe be included:
@@ -28,23 +24,27 @@ Show the use of all the functions that the user needs on the data
 Don't forget the new function matregtest
 -->
 
-# Brief introduction to matrix regression
+The mms package provides tools to do model selection among matrix models via a 
+leave-n-out cross validation and resampling approach.
 
 
-# Example data
+# Brief introduction to matrix regression\label{sect:intromm}
+If $i=1,\ldots,P$ are sampling locations or other identifiers and matrices $M_
+
+# Example data\label{sect:exdata}
 
 
-# Model selection on matrix models and the package functions
+# Model selection on matrix models and the package functions\label{sect:demoondata}
 <!--This includes:
 How to call the functions, how to interpret results - done on the example data, simultaneous description of how to use the functions and how   to interpret the stats
 Brief statement on why the usual AIC methods wont work here
 Brief statement on the likelihood methods that exist (REFS) and why they wont work here
 -->
 
-# Details of the method
+# Details of the method\label{sect:methoddetails}
 <!--Much like the suppmat section of Jon's Ecol Lett paper that is about these methods -->
 
-# Simulation study of effectiveness
+# Simulation study of effectiveness\label{sect:simstudy}
 <!-- Not sure what this will be or even if it will remain. Could be a paired down version of the model-based proof of effeciveness
 of the method that is in Jon's Ecol Lett paper, or could be that whole thing reproduced (but watch run times) or could just be a 
 summary of the results that appear there and a citation-->
@@ -85,7 +85,7 @@ w_P(t)
 Here we consider a scenario in which spatial structure in population dynamics (i.e., geography of synchrony) arises from spatial structure in an environmental driver. 
 The data produced are identical to those used to present "mechanism A"" in Walter et al. (2017). 
 We simulated population dynamics in $P=16$ locations divided between two disjoint eight-location sets, $S_1$ and $S_2$. $S_1$ was {1,...,8} and $S_2$ was {9,...,16}. 
-All locations had identical 2nd-order density dependence with $m_{i1} \approx 0.375$ and $m_{i2} \aprrox-0.368$. These parameters produce periodic oscillations with a dominant period length of $\approx$ 5 time steps. 
+All locations had identical 2nd-order density dependence with $m_{i1} \approx 0.375$ and $m_{i2} \approx -0.368$. These parameters produce periodic oscillations with a dominant period length of $\approx$ 5 time steps. 
 We simulated three environmetnal drivers: an "operating" driver that strongly influences population dynamics (i.e., $q_{i1}^{(1)}=1$) and is spatially structured; a "latent" driver that is also spatially structured but does not influence population dynamics (i.e., $q_{i1}^{(2)}=0$); and a third driver 
 representing local variability that is spatially unstructured (random) and has a small influence on population dynamics (i.e., $q_{i1}^{(2)}=0.1$). 
 Spatial structure in environmental drivers was given by the covariance matrices $\Omega_{j}$, which were block matrices having off-diagona entries $0.6$ within $S_1$ or $S_2$ and $0.3$ between groups. 

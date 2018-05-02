@@ -4,22 +4,41 @@
 \alias{mmsvarwts}
 \title{Variable importance}
 \usage{
-mmsvarwts(pred, weights, varnames = NULL)
+mmsvarwts(pred, weights, prednames = NULL)
 }
 \arguments{
-\item{pred}{a numeric vector giving indices of predictor variables}
+\item{pred}{a numeric vector giving indices of predictor variables as used in a call to \code{mmsmodwts}}
 
 \item{weights}{a data frame of model weights, output from \code{mmsmodwts}}
 
-\item{varnames}{a character vector of predictor names. If NULL (the default), the indices in \code{pred} are used as names}
+\item{prednames}{a character vector of predictor names. If NULL (the default), the indices in \code{pred} are used as names}
 }
 \value{
 an object of class dataframe consisting of summed variable weights
 }
 \description{
-Function to calculate variable importance by summing LNOCV weights.
+Function to calculate variable importance from output of \code{mmsmodwts} by summing LNOCV weights.
 }
 \examples{
+v2<-matrix(rnorm(100),10,10)
+v2<-v2+t(v2)
+v3<-matrix(rnorm(100),10,10)
+v3<-v3+t(v3)
+v4<-matrix(rnorm(100),10,10)
+v4<-v4+t(v4)
+err<-matrix(rnorm(100,sd=.1),10,10)
+err<-err+t(err)
+v1<-1*v2+2*v3+3*v4+1+err
+mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
+model.names<-NA
+n<-2
+#in a real application nrand should be larger 
+nrand<-25 
+maxruns<-Inf
+weights<-mmsmodwts(mats=mats,model.names=model.names,
+             nrand=nrand,n=n,maxruns=maxruns,progress=F)
+pred<-2:4
+res<-mmsvarwts(pred=pred,weights=weights)
 
 }
 \author{

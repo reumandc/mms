@@ -18,7 +18,8 @@
 #' 
 #' @author Tom Anderson, \email{anderstl@@gmail.edu}; Daniel Reuman, \email{reuman@@ku.edu}; Jon Walter, \email{jaw3es@@virginia.edu}
 #' 
-#' @examples
+#' @importFrom stats lm na.omit predict
+#' @importFrom utils combn
 
 
 mmsscore_int<-function(mats,pred,n,maxruns) 
@@ -39,7 +40,7 @@ mmsscore_int<-function(mats,pred,n,maxruns)
   num.pos<-choose(d,n)
   if (maxruns>=num.pos)
   {
-    lno<-combn(1:d,n)
+    lno<-utils::combn(1:d,n)
   } else
   {
     lno<-matrix(NA,nrow=n,ncol=maxruns)
@@ -66,7 +67,7 @@ mmsscore_int<-function(mats,pred,n,maxruns)
     mats.lno<-as.data.frame(mats.lno)
     
     #do the regression for the left-in samples
-    res.lm<-lm(formula=form,data=mats.lno,na.action=na.omit)
+    res.lm<-stats::lm(formula=form,data=mats.lno,na.action=stats::na.omit)
     
     #generate the out-of-sample predictions and their accuracy if 
     #possible
@@ -85,7 +86,7 @@ mmsscore_int<-function(mats,pred,n,maxruns)
                        FUN=function(m){as.vector(m[lno[,counter],
                                                    lno[,counter]])})
       mats.lno<-as.data.frame(mats.lno)
-      pred.val<-predict(res.lm,newdata=mats.lno)
+      pred.val<-stats::predict(res.lm,newdata=mats.lno)
       sqdiffs<-(pred.val-mats.lno[,1])^2
       
       #store what is needed

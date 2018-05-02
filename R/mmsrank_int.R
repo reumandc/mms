@@ -19,8 +19,6 @@
 #' \item{num.usd}{The number of LNOs that could be used in the end (possibly less than num.rnk because of NAs in the input matrices)}
 #' 
 #' @author Tom Anderson, \email{anderstl@@gmail.edu}; Daniel Reuman, \email{reuman@@ku.edu}; Jon Walter, \email{jaw3es@@virginia.edu}
-#' 
-#' @examples
 
 
 mmsrank_int<-function(mats,model.names,n,maxruns,rank.mod=F)

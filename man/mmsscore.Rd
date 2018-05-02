@@ -27,6 +27,20 @@ mmsscore(mats, pred, n, maxruns)
 This function is used to calculate an LNOCV score for a given model, based on mean squared error, out of sample
 }
 \examples{
+v2<-matrix(rnorm(100),10,10)
+v2<-v2+t(v2)
+v3<-matrix(rnorm(100),10,10)
+v3<-v3+t(v3)
+v4<-matrix(rnorm(100),10,10)
+v4<-v4+t(v4)
+err<-matrix(rnorm(100,sd=.1),10,10)
+err<-err+t(err)
+v1<-1*v2+2*v3+3*v4+1+err
+mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
+pred<-2:4
+n<-2
+maxruns<-Inf
+h<-mmsscore(mats=mats,pred=pred,n=n,maxruns=maxruns)
 
 }
 \author{

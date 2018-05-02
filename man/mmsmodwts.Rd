@@ -20,7 +20,7 @@ mmsmodwts(mats, model.names = NA, nrand, n, maxruns, progress = T)
 \item{progress}{T/F, should progress be printed to the screen? Default T.}
 }
 \value{
-\code{mmsmodwts} return an object of class list consisting of 
+\code{mmsmodwts} return an object of class data frame consisting of 
 \item{model.names}{The name of the model, based on the indices of included predictors in mats}
 \item{freq.top}{The number of times it was the top model, across randomizations}
 \item{num.pos}{The possible number of LNOs for the given n and number of locations}
@@ -32,6 +32,23 @@ mmsmodwts(mats, model.names = NA, nrand, n, maxruns, progress = T)
 Resampling procedure for obtaining model weights with matrix regression models, similar to AIC weights.
 }
 \examples{
+v2<-matrix(rnorm(100),10,10)
+v2<-v2+t(v2)
+v3<-matrix(rnorm(100),10,10)
+v3<-v3+t(v3)
+v4<-matrix(rnorm(100),10,10)
+v4<-v4+t(v4)
+err<-matrix(rnorm(100,sd=.1),10,10)
+err<-err+t(err)
+v1<-1*v2+2*v3+3*v4+1+err
+mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
+model.names<-NA
+n<-2
+#in a real application nrand should be larger 
+nrand<-25 
+maxruns<-Inf
+h<-mmsmodwts(mats=mats,model.names=model.names,
+             nrand=nrand,n=n,maxruns=maxruns,progress=FALSE)
 
 }
 \author{

@@ -1,6 +1,7 @@
 context("matregtest")
 
 test_that("test matregtest in a perfect-regression case", {
+  old.seed<-.Random.seed
   set.seed(101)
   v2<-matrix(rnorm(100),10,10)
   v2<-v2+t(v2)
@@ -16,9 +17,11 @@ test_that("test matregtest in a perfect-regression case", {
   h<-matregtest(mats,pred,drop,numperm)
   expect_equal(h$ssr_dat,0)
   expect_equal(h$p,0)
+  .Random.seed<-old.seed
 })
 
 test_that("test matregtest error catching", {
+  old.seed<-.Random.seed
   set.seed(101)
   v2<-matrix(rnorm(100),10,10)
   v2<-v2+t(v2)
@@ -32,9 +35,11 @@ test_that("test matregtest error catching", {
   drop<-4
   numperm<-10
   expect_error(matregtest(mats,pred,drop,numperm),"Error in matregtest: drop should be a subset of pred")
+  .Random.seed<-old.seed
 })
 
 test_that("test matregtest in arbitrary test cases that should come out the same on future runs", {
+  old.seed<-.Random.seed
   set.seed(201)
   v2<-matrix(rnorm(100),10,10)
   v2<-v2+t(v2)
@@ -59,4 +64,5 @@ test_that("test matregtest in arbitrary test cases that should come out the same
   h<-matregtest(mats,pred,drop,numperm)
   #I got this hash with digest::digest(h)
   expect_known_hash(h,hash="a17b5db17284e14f7c8c8e8224a7c9a3")
+  .Random.seed<-old.seed
 })

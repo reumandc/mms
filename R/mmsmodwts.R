@@ -20,6 +20,23 @@
 #' @author Tom Anderson, \email{anderstl@@gmail.edu}; Daniel Reuman, \email{reuman@@ku.edu}; Jon Walter, \email{jaw3es@@virginia.edu}
 #' 
 #' @examples
+#' v2<-matrix(rnorm(100),10,10)
+#' v2<-v2+t(v2)
+#' v3<-matrix(rnorm(100),10,10)
+#' v3<-v3+t(v3)
+#' v4<-matrix(rnorm(100),10,10)
+#' v4<-v4+t(v4)
+#' err<-matrix(rnorm(100,sd=.1),10,10)
+#' err<-err+t(err)
+#' v1<-1*v2+2*v3+3*v4+1+err
+#' mats<-list(v1=v1,v2=v2,v3=v3,v4=v4)
+#' model.names<-NA
+#' n<-2
+#' #in a real application nrand should be larger 
+#' nrand<-25 
+#' maxruns<-Inf
+#' h<-mmsmodwts(mats=mats,model.names=model.names,
+#'              nrand=nrand,n=n,maxruns=maxruns,progress=FALSE)
 #' 
 #' @export
 
@@ -28,7 +45,7 @@ mmsmodwts<-function(mats,model.names=NA,nrand,n,maxruns,progress=T)
 {
   #error checking
   errcheck_mats("mmsrank",mats)
-  errcheck_n("mmsrank",dim(mats[[1]]),n,maxruns)
+  errcheck_n("mmsrank",dim(mats[[1]])[1],n,maxruns)
   
   #if the user does not provide a list of models names, make one with 
   #all names
