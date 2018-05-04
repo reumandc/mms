@@ -36,16 +36,19 @@ The `mms` package provides tools to
 do model selection among matrix models via a 
 leave-n-out cross validation and resampling approach. Section \ref{sect:intromm}
 provides a statement of what matrix modelling is, with references to
-background materials. Section \ref{sect:exdata} describes an example
+background materials. Section \ref{sect:whymodselect} states why model 
+selection for matrix models is needed. Section \ref{sect:exdata} describes an example
 dataset that is used in section \ref{sect:demoondata} to illustrate
 how `mms` package functions are used. Section \ref{sect:methoddetails}
-provides links to a detailed desription of the model selection methods.
+provides a connection to a detailed desription, provided elsewhere, 
+of the model selection methods
+implemented in the `mms` package.
 Section \ref{sect:simstudy} provides a brief simulation study
 demonstrating the effectiveness of the methods.
 
 # Brief introduction to matrix regression\label{sect:intromm}
-If $i=1,\ldots,P$ are sampling locations or other identifiers and matrices 
-$R$ and $M_1,\ldots,M_n$ quantify different measures of pairwise similarities
+If $i=1,\ldots,P$ are sampling locations or other identifiers and the $P \times P$
+matrices $R$ and $M_1,\ldots,M_n$ quantify different measures of pairwise similarities
 or differences between these identifiers, then matrix regression extends the
 widely used Mantel test by assessing the relationship between the response 
 variable $R$ and the multiple predictor matrices $M_i$, while properly
@@ -55,20 +58,52 @@ For instance, if time series of populations were measured over the same
 times in locations $1,\ldots,P$ then the $ij^{\text{th}}$ entry of $R$ 
 could be a measure (e.g., correlation) of the synchrony through time 
 between the population time series
-of locations $i$ and $j$. The $ij^{\text{th}}$ entry of $M_1$ could contain distances 
+of locations $i$ and $j$. The $ij^{\text{th}}$ entry of $M_1$ could contain
+geographic distances 
 between the locations $i$ and $j$. And the $ij^{\text{th}}$ entries of 
 $M_l$ for $l=2,\ldots,n$ could contain correlations of time series of 
 different environmental variables (one variable for each $l=2,\ldots,n$)
-measured in the same locations and times. One can perform tests of the 
-statistical importance of any $M_i$ ($i=1,\ldots,n$) as a predictor of $R$ 
-while controlling for the other predictors. The references cited above 
-give background and the `ecodist` provides code. Matric regression
-is increasingly used in ecology and other fields 
-<!--DAN: add refs to our other papers, perhaps Tom's is the only, and also
-to Haynes, Legendre and Legendre 1998, maybe look for more refs in Tom's Oikos paper-->
+measured for the same locations and times as the populations. With matrix regression,
+one can perform tests of the
+statistical importance of any of the $M_i$ ($i=1,\ldots,n$) as a predictor of $R$ 
+while controlling for the other predictors. The `matregtest` function in the
+`mms` package implements such tests. 
+The references cited above 
+give background on matrix modelling and the `ecodist` package provides 
+additional code supporting matrix regressions. Matrix regression
+is increasingly used in ecology and other
+fields [@legendre_1998; @bellamy_2003; @powney_2012; @haynes_2013; @anderson_2017].
 
+# Why model selection is needed for matrix models\label{sect:whymodselect}
+Model selection via the Akaike or Bayesian Information Criteria (AIC, BIC) 
+is now very commonly used to identify the relative support of data for 
+alternative models which commonly represent alterative biological mechanisms 
+that may explain an observed pattern [@burnham_2002; @clark_2006]. The 
+practical advantages of model selection for matrix models over standard 
+tests 
+comparing a matrix regression model (e.g., with response $R$ and predictors 
+$M_1,\ldots,M_n$, using notation from section \ref{sect:intromm}) to a 
+simpler/nested model (e.g., with response $R$ and predictors some subset
+of $M_1,\ldots,M_n$; such tests are implemented by `matregtest`) are the
+same as the advantages of, for instance, AIC-based model selection among
+linear models over stepwise regression methods. Multiple
+models can be straightforwardly compared, and models need not be nested 
+to make comparisons between them. 
 
-
+Information criteria such as the AIC and BIC cannot be used to compare matrix
+models because these techniques are based on likelihood, and matrix 
+regression uses a resampling framework instead of likelhood. The
+`mms` package implements alternatives based on leave-n-out cross
+validation and resampling. A likelihood-based approach to matrix models
+was developed for applications in genetics [@yang_2004; @peterman_2014],
+but that approach cannot be used for applications for which the 
+response matrix $R$ is a positive semi-definite matrix, since the approach
+does not preserve the positive semi-definiteness property. For instance,
+applications in which $R$ is a covariance or correlation matrix 
+[@bellamy_2003; @powney_2012; @haynes_2013; @anderson_2017] are in this 
+category. We recommend the use of our methods when positive semi-definiteness
+must be preserved, and the likelihood-based methods when this is 
+not the case.
 
 # Example data\label{sect:exdata}
 
@@ -81,7 +116,22 @@ Brief statement on the likelihood methods that exist (REFS) and why they wont wo
 -->
 
 # Details of the method\label{sect:methoddetails}
-<!--Much like the suppmat section of Jon's Ecol Lett paper that is about these methods -->
+The methods of the `mms` package are described in detail by 
+[@walter_2017], their Supporting Information Appendix S4. 
+[@walter_2017] also released, as their Supporting Information Appendix S10,  
+a precursor version of some of the code in `mms` package. 
+
+The main
+matrix model selection functions of [@walter_2017], called `lno.score`,
+`lno.ranking`, and `lno.weights`, are replaced by the functions 
+`mmsscore`, `mmsrank`, and `mmsmodwts` in the `mms` package. 
+As far as we are aware, there is nothing wrong with the code in
+`lno.score`, `lno.ranking`, and `lno.weights`, but the `mms` functions
+are better documented and are illustrated below in their application.
+[@walter_2017] also released the ancillary, bookkeeping function 
+`sum.var.weights`, which we now know has a minor bug that will affect some
+applications. It is replaced
+by `mmsvarwts` in the `mms` package.
 
 # Simulation study of effectiveness\label{sect:simstudy}
 <!-- Not sure what this will be or even if it will remain. Could be a paired down version of the model-based proof of effeciveness
