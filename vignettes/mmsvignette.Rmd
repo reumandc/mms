@@ -20,18 +20,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-<!--Thoughts on what should maybe be included:
-Brief qualitative intro to matrix model selection, with references
-Reference to Jon's paper, and Tom's Oikos and L&O (hopefully) papers
-I would ike to have an example using real data, Jon's gypsy moth or Tom's Oikos would be good, but need something where the 
-  data (or a suitable subset) can be included, and it also needs to run reasonably fast
-Basically we describe the method (copy from the section in supp mat in Ecol Lett, basically)
-We also will have to intro the data
-Mention the likelihood methods, cite the relevant papers, say the contexts where those wont work
-Show the use of all the functions that the user needs on the data
-Don't forget the new function matregtest
--->
-
 The `mms` package provides tools to 
 do model selection among matrix models via a 
 leave-n-out cross validation and resampling approach. Section \ref{sect:intromm}
@@ -178,6 +166,8 @@ disp<-kyldisp[ostat,ostat]
 Now do some basic matrix regression tests (no model selection yet),
 using `matregtest`:
 ```{r matregtest_chunk}
+old.seed<-.Random.seed
+set.seed(101)
 mats<-c(cormats,list(dist=dist,disp=disp))
 #test significance of totP
 res_d1<-matregtest(mats=mats,pred=2:4,drop=2,numperm=1000)
@@ -190,14 +180,49 @@ res_d3<-matregtest(mats=mats,pred=2:4,drop=4,numperm=1000)
 res_d3$p
 ```
 
-The results suggest both total P and the dispersal difficulty matrix
+The results suggest both total P and the dispersal difficulty matrices
 are necessary to explain the synchrony matrix for chlorophyll. Now
 use model selection to work out relative importances. A typical
-use of the package just uses `mmsmodwts` and `mmsvarwts`:
-```{r model_sel}
-
+use of the model selection tools in the package starts with `mmsmodwts`:
+```{r model_sel_1}
+nrand<-25
+n<-2
+maxruns<-50
+res<-mmsmodwts(mats=mats,model.names=NA,nrand=nrand,n=n,maxruns=maxruns,progress=F)
+res
 ```
+The second column shows the number of resamplings (of the `r nrand` performed) on which each model
+was ranked the highest. The fraction of resamplings for which a model is ranked highest is 
+a number between $0$ and $1$ and can be interpreted 
+as a model importance weight, similar to an AIC weight [@walter_2017]. The fraction 
+is interpretable as the degree of support of the data for each model. The third column
+shows the number of possible leave-n-outs that could have been performed across all resamplings
+(for `r dim(mats[[1]])[1]` locations and using $n=$ `r n` gives `r dim(mats[[1]])[1]` choose `r n` = 
+`r choose(dim(mats[[1]])[1],n)` possible leave-n-outs per resampling, times `nrand`= `r nrand` resamplings,
+which gives `r choose(dim(mats[[1]])[1],n)*nrand`. The fourth column gives the number of leave-n-outs
+that were attempted, less than the previous column because `maxruns` was `r maxruns`, less than
+`r dim(mats[[1]])[1]` choose `r n`. Regressions with rank deficiency problems do not yield well-determined
+regression coefficients and cannot be used for out-of-sample predictions. The column
+`num.rnk` is the number of leave-n-outs attempted for which rank deficiency problems did not occur.
+The final column is leave-n-outs that succeeded, providing an estimate of out-of-sample forcast
+accuracy. This can be less than `num.rnk` due to technicalities on how resampling and leave-n-out
+interact in the algorithm when the same site is selected more than once in the resampling.
+Values should decrease or stay the same as one progresses from column 3 to 4 to 5 to 6. The final column 
+should still have large numbers for results to be reliable. Note that in this example we used
+small values if `nrand` and `maxruns` to keep overall vignette run times down but we recommend using 
+substantially larger values for final analyses.
 
+Model weights are summed for across all models that contain a given predictor to get 
+predictor importance weights, using `mmsvarwts`:
+```{r model_sel_2}
+mmsvarwts(pred=2:4,weights=res,prednames=names(mats)[2:4])
+```
+Results show the most important variable is `disp` with `totP` and `dist` less important.
+This is consistent with the results of [@anderson_2017].
+
+The functions `mmsrank` and `mmsscore` are called internally by any call to `mmsmodwts`, but they
+can also be called directly to yield rankings of models on their out-of-sample forcasting scores and 
+the forecastng scores themselves, respectively.
 
 # Details of the model selection methods\label{sect:methoddetails}
 The methods of the `mms` package are described in detail elsewhere 
@@ -326,3 +351,8 @@ print(varimp)
 ```
 
 The algorithm correctly identifies the operating environmental driver as the most important predictor.
+
+```{r echo=F}
+#put the seed back
+.Random.seed<-old.seed
+```

@@ -15,7 +15,7 @@
 #' \item{num.pos}{The possible number of LNOs for the given n and number of locations}
 #' \item{num.att}{The total number of LNOs attempted, total across randomizations}
 #' \item{num.rnk}{The number of LNOs that did not result in a rank deficiency regression problem, total across randomizations}
-#' \item{num.usd}{The number of LNOs that could be used in the end, total across randomizations)}
+#' \item{num.usd}{The number of LNOs that could be used in the end, total across randomizations}
 #' 
 #' @author Tom Anderson, \email{anderstl@@gmail.edu}; Daniel Reuman, \email{reuman@@ku.edu}; Jon Walter, \email{jaw3es@@virginia.edu}
 #' 
