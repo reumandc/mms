@@ -26,7 +26,7 @@ mmsmodwts(mats, model.names = NA, nrand, n, maxruns, progress = T)
 \item{num.pos}{The possible number of LNOs for the given n and number of locations}
 \item{num.att}{The total number of LNOs attempted, total across randomizations}
 \item{num.rnk}{The number of LNOs that did not result in a rank deficiency regression problem, total across randomizations}
-\item{num.usd}{The number of LNOs that could be used in the end, total across randomizations)}
+\item{num.usd}{The number of LNOs that could be used in the end, total across randomizations}
 }
 \description{
 Resampling procedure for obtaining model weights with matrix regression models, similar to AIC weights.
