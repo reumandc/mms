@@ -117,8 +117,8 @@ by 16 (number of sampling locations) matrix. No data were missing.
 # Model selection on matrix models and the package functions\label{sect:demoondata}
 First make sure the time series data are loaded into memory:
 ```{r load_data}
+library(mms)
 data(kyldat)
-attach(kyldat)
 ```
 
 Then these data are processed to get four $16 \times 16$ matrices of Spearman correlation
@@ -159,15 +159,12 @@ dist<-ncf::gcdist(sll$LONG_DD,sll$LAT_DD)
 Then load the estimated dispersal difficulty matrix and reorder rows and columns appropriately
 ```{r get_disp_mat}
 data(kyldisp)
-attach(kyldisp)
 disp<-kyldisp[ostat,ostat]
 ```
 
 Now do some basic matrix regression tests (no model selection yet),
 using `matregtest`:
 ```{r matregtest_chunk}
-old.seed<-.Random.seed
-set.seed(101)
 mats<-c(cormats,list(dist=dist,disp=disp))
 #test significance of totP
 res_d1<-matregtest(mats=mats,pred=2:4,drop=2,numperm=1000)
@@ -181,10 +178,12 @@ res_d3$p
 ```
 
 The results suggest both total P and the dispersal difficulty matrices
-are necessary to explain the synchrony matrix for chlorophyll. Now
+are necessary to explain the synchrony matrix for chlorophyll. 
+
+Now
 use model selection to work out relative importances. A typical
 use of the model selection tools in the package starts with `mmsmodwts`:
-```{r model_sel_1}
+```{r model_sel_1, cache=T}
 nrand<-25
 n<-2
 maxruns<-50
@@ -199,7 +198,7 @@ is interpretable as the degree of support of the data for each model. The third 
 shows the number of possible leave-n-outs that could have been performed across all resamplings
 (for `r dim(mats[[1]])[1]` locations and using $n=$ `r n` gives `r dim(mats[[1]])[1]` choose `r n` = 
 `r choose(dim(mats[[1]])[1],n)` possible leave-n-outs per resampling, times `nrand`= `r nrand` resamplings,
-which gives `r choose(dim(mats[[1]])[1],n)*nrand`. The fourth column gives the number of leave-n-outs
+which gives `r choose(dim(mats[[1]])[1],n)*nrand`). The fourth column gives the number of leave-n-outs
 that were attempted, less than the previous column because `maxruns` was `r maxruns`, less than
 `r dim(mats[[1]])[1]` choose `r n`. Regressions with rank deficiency problems do not yield well-determined
 regression coefficients and cannot be used for out-of-sample predictions. The column
@@ -294,7 +293,7 @@ The model was run for 150 time steps with a 100 time step burn-in period.
 We use simulated data to define a response matrix and multiple predictors, including a true predictor representing the operating mechanism in the simulation described above, and two spurious predictors representing latent (non-operating) possible mechanisms. 
 The data are available using:
 
-```{r load_data}
+```{r load_sim_data}
 data(simdat)
 attach(simdat)
 ```
@@ -304,7 +303,7 @@ The first three are $P$ by $t$ matrices giving, respectively, abundances $w_{i}(
 The fourth is the $P$ by $P$ dispersal matrix, $D$. 
 We then compute synchrony matrices using Pearson correlations:
 
-```{r get_cor_mats}
+```{r get_cor_mats_sim}
 popsynch<-cor(t(simdat$pop), method="pearson")
 driversynch<-cor(t(simdat$driver), method="pearson")
 latentsynch<-cor(t(simdat$latent), method="pearson")
@@ -352,7 +351,3 @@ print(varimp)
 
 The algorithm correctly identifies the operating environmental driver as the most important predictor.
 
-```{r echo=F}
-#put the seed back
-.Random.seed<-old.seed
-```
