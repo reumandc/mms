@@ -96,7 +96,7 @@ must be preserved, and the likelihood-based methods otherwise.
 <!--
 #create the example data in the expected format - annualize time series
 kyldat<-read.csv(file="../data/kylakedata.csv",header=T,stringsAsFactors = F)
-save(kyldat,file="../data/kyldata.RData")
+save(kyldat,file="../data/kyldat.RData")
 
 #create the example data in the expected format - dispersal difficulty matrix
 kyldisp<-read.csv(file="../data/kylakedispersal.csv",header=T,stringsAsFactors = F,row.names=1)
