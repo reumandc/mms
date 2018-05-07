@@ -102,33 +102,117 @@ does not preserve the positive semi-definiteness property. For instance,
 applications in which $R$ is a covariance or correlation matrix 
 [@bellamy_2003; @powney_2012; @haynes_2013; @anderson_2017] are in this 
 category. We recommend the use of our methods when positive semi-definiteness
-must be preserved, and the likelihood-based methods when this is 
-not the case.
+must be preserved, and the likelihood-based methods otherwise.
 
 # Example data\label{sect:exdata}
+<!--
+#create the example data in the expected format - annualize time series
+kyldat<-read.csv(file="../data/kylakedata.csv",header=T,stringsAsFactors = F)
+save(kyldat,file="../data/kyldata.RData")
 
+#create the example data in the expected format - dispersal difficulty matrix
+kyldisp<-read.csv(file="../data/kylakedispersal.csv",header=T,stringsAsFactors = F,row.names=1)
+kyldisp2<-as.matrix(kyldisp)
+rownames(kyldisp2)<-rownames(kyldisp)
+colnames(kyldisp2)<-rownames(kyldisp)
+kyldisp<-kyldisp2
+save(kyldisp,file="../data/kyldisp.RData")
+```-->
+Data are stored in Dryad [@anderson_2017_dat] and were analyzed recently by [@anderson_2017]. 
+Data and sampling methods were described in detail elsewhere [@bukaveckas_2002; @yurista_2004; @white_2007; @levine_2014; @anderson_2017]. Data are annual averages for 1990-2015 of measurements 
+of various plankton and environmental quantities at 16 locations in the lake.
+Numerous various were measured and are elaborate in the package help file for the dataset 
+(`?kyldat`). We analyze chlorphyll-a densities, water temperatures, total N concentrations,
+and total P concentrations. For each of these variables, data comprise a 26 (number of years, 1990 to 2015)
+by 16 (number of sampling locations) matrix. No data were missing.
 
 # Model selection on matrix models and the package functions\label{sect:demoondata}
-<!--This includes:
-How to call the functions, how to interpret results - done on the example data, simultaneous description of how to use the functions and how   to interpret the stats
-Brief statement on why the usual AIC methods wont work here
-Brief statement on the likelihood methods that exist (REFS) and why they wont work here
--->
+First make sure the time series data are loaded into memory:
+```{r load_data}
+data(kyldat)
+attach(kyldat)
+```
 
-# Details of the method\label{sect:methoddetails}
-The methods of the `mms` package are described in detail by 
-[@walter_2017], their Supporting Information Appendix S4. 
-[@walter_2017] also released, as their Supporting Information Appendix S10,  
-a precursor version of some of the code in `mms` package. 
+Then these data are processed to get four $16 \times 16$ matrices of Spearman correlation
+coefficients between time series in different locations for each of 
+the variables chlorphyll density, water temperature, total N concentrations, and
+total P concentrations:
+```{r get_cor_mats}
+makedatmat<-function(dat,var)
+{
+  dat<-dat[,c("Station","Year",var)]
+  stations<-sort(unique(dat$Station))
+  dat<-cbind(dat,StationNID=sapply(X=dat$Station,FUN=function(x){which(x == stations)}))
+  mY<-min(dat$Year)
+  MY<-max(dat$Year)
+  res<-matrix(NA,MY-mY+1,length(stations))
+  for (counter in 1:dim(dat)[1])
+  {
+    res[dat$Year[counter]-mY+1,dat$StationNID[counter]]<-dat[counter,var]
+  }
+  return(res)
+}
+datmats<-list(chlo=makedatmat(kyldat,"Chlorophyll"),
+#              temp=makedatmat(kyldat,"Temperature"),
+#              totN=makedatmat(kyldat,"TotalN"))
+              totP=makedatmat(kyldat,"TotalP"))
+cormats<-lapply(X=datmats,FUN=function(x){cor(x,method="spearman")})
+```
 
-The main
-matrix model selection functions of [@walter_2017], called `lno.score`,
+Then a matrix containing geographic distances between the sampling locations is calculated:
+```{r get_dist_mat}
+sll<-unique(kyldat[,c("Station","LAT_DD","LONG_DD")])
+ostat<-order(sll$Station)
+sll<-sll[ostat,]
+numlocs<-dim(sll)[1]
+dist<-ncf::gcdist(sll$LONG_DD,sll$LAT_DD)
+```
+
+Then load the estimated dispersal difficulty matrix and reorder rows and columns appropriately
+```{r get_disp_mat}
+data(kyldisp)
+attach(kyldisp)
+disp<-kyldisp[ostat,ostat]
+```
+
+Now do some basic matrix regression tests (no model selection yet),
+using `matregtest`:
+```{r matregtest_chunk}
+mats<-c(cormats,list(dist=dist,disp=disp))
+#test significance of totP
+res_d1<-matregtest(mats=mats,pred=2:4,drop=2,numperm=1000)
+res_d1$p
+#test the significance of dist
+res_d2<-matregtest(mats=mats,pred=2:4,drop=3,numperm=1000)
+res_d2$p
+#test the significance of disp
+res_d3<-matregtest(mats=mats,pred=2:4,drop=4,numperm=1000)
+res_d3$p
+```
+
+The results suggest both total P and the dispersal difficulty matrix
+are necessary to explain the synchrony matrix for chlorophyll. Now
+use model selection to work out relative importances. A typical
+use of the package just uses `mmsmodwts` and `mmsvarwts`:
+```{r model_sel}
+
+```
+
+
+# Details of the model selection methods\label{sect:methoddetails}
+The methods of the `mms` package are described in detail elsewhere 
+[@walter_2017, their Supporting Information Appendix S4]. 
+
+@walter_2017 also released, as their Supporting Information Appendix S10,
+a precursor version of some of the code in the `mms` package. The main
+matrix model selection functions of @walter_2017, called `lno.score`,
 `lno.ranking`, and `lno.weights`, are replaced by the functions 
 `mmsscore`, `mmsrank`, and `mmsmodwts` in the `mms` package. 
 As far as we are aware, there is nothing wrong with the code in
 `lno.score`, `lno.ranking`, and `lno.weights`, but the `mms` functions
-are better documented and are illustrated below in their application.
-[@walter_2017] also released the ancillary, bookkeeping function 
+are better documented, are published together with their unit tests,
+and are illustrated below in applications. 
+@walter_2017 also released the ancillary, bookkeeping function 
 `sum.var.weights`, which we now know has a minor bug that will affect some
 applications. It is replaced
 by `mmsvarwts` in the `mms` package.
@@ -185,8 +269,7 @@ The model was run for 150 time steps with a 100 time step burn-in period.
 We use simulated data to define a response matrix and multiple predictors, including a true predictor representing the operating mechanism in the simulation described above, and two spurious predictors representing latent (non-operating) possible mechanisms. 
 The data are available using:
 
-```{r load_package_and_data}
-library(mms)
+```{r load_data}
 data(simdat)
 attach(simdat)
 ```
