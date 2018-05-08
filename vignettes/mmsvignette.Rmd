@@ -184,7 +184,8 @@ are necessary to explain the synchrony matrix for chlorophyll.
 Now
 use model selection to work out relative importances. A typical
 use of the model selection tools in the package starts with `mmsmodwts`:
-```{r model_sel_1, cache=T}
+```{r model_sel_1}
+#, cache=T}
 nrand<-25
 n<-2
 maxruns<-50
@@ -340,7 +341,8 @@ Model weights, corresponding to the frequency across resampled datasets with whi
 <!--Probably you should get rid of the chaching before you are through,
 but it helps with editing the latex-->
 
-```{r call_mmsmodwts, cache=T, cache.extra=list(modmats)}
+```{r call_mmsmodwts}
+#, cache=T, cache.extra=list(modmats)}
 modweights<-mmsmodwts(mats=modmats, n=2, maxruns=200, nrand=50,progress=F)
 print(modweights)
 ```

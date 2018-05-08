@@ -12,6 +12,8 @@ Description: The package contains tools for performing model selection among mat
 License: GPL (>=3)
 Encoding: UTF-8
 LazyData: true
+Imports:
+    ncf
 Suggests: testthat,
     knitr,
     rmarkdown

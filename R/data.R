@@ -51,8 +51,6 @@
 #' \code{Calanoida} number of individuals per 45 L
 #' \code{Cyclopoida} number of individuals per 45 L
 #' \code{Leptodora} number of individuals per 45 L
-#' 
-#' @importFrom ncf gcdist
 "kyldat"
 
 
