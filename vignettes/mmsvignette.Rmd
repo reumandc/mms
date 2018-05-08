@@ -121,6 +121,10 @@ library(mms)
 data(kyldat)
 ```
 
+```{r echo=F}
+set.seed(101)
+```
+
 Then these data are processed to get four $16 \times 16$ matrices of Spearman correlation
 coefficients between time series in different locations for each of 
 the variables chlorphyll density, water temperature, total N concentrations, and
@@ -327,11 +331,11 @@ Note that in this case, and in those following, `maxruns` (and later, `nrand`) i
 A selection of models can be ranked using:
 
 ```{r call_mmsranks}
-modranks<-mmsrank(mats=modmats, model.names=NA, n=2, maxruns=200)
+modranks<-mmsrank(mats=modmats, model.names=NA, n=2, maxruns=200,rank.mod=T)
 print(modranks)
 ```
 
-Here, we use `model.nameds=NA` (the default) to test all possible combinations of predictors. 
+Here, we use `model.names=NA` (the default) to test all possible combinations of predictors. 
 The first matrix in `mats` is assumed to be the response variable. 
 Recall that in our example there is one operating environmental driver producing geography of synchrony.
 The model reflecting this receives the highest rank.
@@ -355,3 +359,4 @@ print(varimp)
 
 The algorithm correctly identifies the operating environmental driver as the most important predictor.
 
+# References
