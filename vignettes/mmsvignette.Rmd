@@ -64,7 +64,6 @@ Model selection via the Akaike or Bayesian Information Criteria (AIC, BIC)
 is now very commonly used to identify the relative support of data for 
 alternative models which commonly represent alterative biological mechanisms 
 that may explain an observed pattern [@burnham_2002; @clark_2006].
-<!--the Clark reference looks like it has not rendered correctly in the vignette PDF.-->
 The practical advantages of model selection for matrix models over standard 
 tests comparing a matrix regression model (e.g., with response $R$ and predictors 
 $M_1,\ldots,M_n$, using notation from section \ref{sect:intromm}) to a 
@@ -105,7 +104,6 @@ save(kyldisp,file="../data/kyldisp.RData")
 ```-->
 Data are stored in Dryad [@anderson_2017_dat] and were analyzed recently by @anderson_2017 to compare how dispersal and environmental drivers impact synchrony in freshwater plankton. 
 Data and sampling methods were described in detail elsewhere [@bukaveckas_2002; @yurista_2004; @white_2007; @levine_2014; @anderson_2017]. 
-<!--The white 2007 reference also appears not to render correctly in the PDF-->
 Data are annual averages for 1990-2015 of measurements 
 of various plankton and environmental quantities at 16 locations in the lake.
 Numerous variables were measured and are elaborated on in the package help file for the dataset 
