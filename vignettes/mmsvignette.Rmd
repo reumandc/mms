@@ -1,21 +1,25 @@
 ---
 title: "Matrix model selection (mms) package vignette"
 author: "Jonathan Walter, Thomas Anderson, Lei Zhao, Daniel Reuman"
-date: ''
-output:
+date: ""
+geometry: "left=1cm,right=1cm,top=2.5cm,bottom=2.8cm"
+
+output: 
   pdf_document:
-    fig_caption: yes
-    keep_tex: yes
     number_sections: yes
-  html_document:
-    df_print: paged
-link-citations: yes
-geometry: left=1cm,right=1cm,top=2.5cm,bottom=2.8cm
-bibliography: mmsvignette_refs.bib
+    keep_tex: yes
+    fig_caption: yes
+link-citations: True
 urlcolor: blue
-vignette: |
-  %\VignetteIndexEntry{"Matrix model selection package vignette"} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
+
+bibliography: mmsvignette_refs.bib 
+
+vignette: >
+  %\VignetteIndexEntry{"Matrix model selection package vignette"}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
+
 
 The `mms` package provides tools to 
 do model selection among matrix models via a 
