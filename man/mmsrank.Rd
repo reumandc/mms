@@ -44,7 +44,7 @@ model.names<-NA
 n<-2
 maxruns<-Inf
 h<-mmsrank(mats=mats,model.names=model.names,
-             n=n,maxruns=maxruns,rank.mod=T)
+             n=n,maxruns=maxruns,rank.mod=TRUE)
 
 }
 \author{

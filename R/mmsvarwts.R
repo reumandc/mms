@@ -26,7 +26,7 @@
 #' nrand<-25 
 #' maxruns<-Inf
 #' weights<-mmsmodwts(mats=mats,model.names=model.names,
-#'              nrand=nrand,n=n,maxruns=maxruns,progress=F)
+#'              nrand=nrand,n=n,maxruns=maxruns,progress=FALSE)
 #' pred<-2:4
 #' res<-mmsvarwts(pred=pred,weights=weights)
 #' 
