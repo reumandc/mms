@@ -1,23 +1,20 @@
 ---
 title: "Matrix model selection (mms) package vignette"
 author: "Jonathan Walter, Thomas Anderson, Lei Zhao, Daniel Reuman"
-date: ""
-geometry: "left=1cm,right=1cm,top=2.5cm,bottom=2.8cm"
-
-output: 
+date: ''
+output:
   pdf_document:
-    number_sections: yes
-    keep_tex: yes
     fig_caption: yes
-link-citations: True
+    keep_tex: yes
+    number_sections: yes
+  html_document:
+    df_print: paged
+link-citations: yes
+geometry: left=1cm,right=1cm,top=2.5cm,bottom=2.8cm
+bibliography: mmsvignette_refs.bib
 urlcolor: blue
-
-bibliography: mmsvignette_refs.bib 
-
-vignette: >
-  %\VignetteIndexEntry{"Matrix model selection package vignette"}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+vignette: |
+  %\VignetteIndexEntry{"Matrix model selection package vignette"} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
 ---
 
 The `mms` package provides tools to 
@@ -80,7 +77,7 @@ to make comparisons between them.
 
 Information criteria such as the AIC and BIC cannot be used to compare matrix
 models because these techniques are based on likelihood, and matrix 
-regression uses a resampling framework instead of likelhood. The
+regression uses a resampling framework instead of likelihood. The
 `mms` package implements alternatives based on leave-n-out cross
 validation and resampling. A likelihood-based approach to matrix models
 was developed for applications in genetics [@yang_2004; @peterman_2014],
@@ -106,12 +103,12 @@ colnames(kyldisp2)<-rownames(kyldisp)
 kyldisp<-kyldisp2
 save(kyldisp,file="../data/kyldisp.RData")
 ```-->
-Data are stored in Dryad [@anderson_2017_dat] and were analyzed recently by [@anderson_2017]. 
+Data are stored in Dryad [@anderson_2017_dat] and were analyzed recently by @anderson_2017 to compare how dispersal and environmental drivers impact synchrony in freshwater plankton. 
 Data and sampling methods were described in detail elsewhere [@bukaveckas_2002; @yurista_2004; @white_2007; @levine_2014; @anderson_2017]. 
 <!--The white 2007 reference also appears not to render correctly in the PDF-->
 Data are annual averages for 1990-2015 of measurements 
 of various plankton and environmental quantities at 16 locations in the lake.
-Numerous variables were measured and are elaborated in the package help file for the dataset 
+Numerous variables were measured and are elaborated on in the package help file for the dataset 
 (`?kyldat`). We analyze chlorphyll-a densities, water temperatures, total N concentrations,
 and total P concentrations. For each of these variables, data comprise a 26 (number of years, 1990 to 2015)
 by 16 (number of sampling locations) matrix. No data were missing.
@@ -217,7 +214,7 @@ should still have large numbers for results to be reliable. Note that in this ex
 small values if `nrand` and `maxruns` to keep overall vignette run times down but we recommend using 
 substantially larger values for final analyses.
 
-Model weights are summed for across all models that contain a given predictor to get 
+Model weights are summed across all models that contain a given predictor to get 
 predictor importance weights, using `mmsvarwts`:
 ```{r model_sel_2}
 mmsvarwts(pred=2:4,weights=res,prednames=names(mats)[2:4])
@@ -289,7 +286,7 @@ The data produced are identical to those used to present "mechanism A"" in @walt
 We simulated population dynamics in $P=16$ locations divided between two disjoint eight-location sets, $S_1$ and $S_2$. $S_1$ was {1,...,8} and $S_2$ was {9,...,16}. 
 All locations had identical 2nd-order density dependence with $m_{i1} \approx 0.375$ and $m_{i2} \approx -0.368$ 
 ($a=2$). These parameters produce periodic oscillations with a dominant period length of $\approx$ 5 time steps. 
-We simulated three environmetnal drivers: an "operating" driver that strongly influences population dynamics (i.e., $q_{i1}^{(1)}=1$, $q_{il}^{(1)}=0$ for $l>1$) and is spatially structured; a "latent" driver that is also spatially structured but does not influence population dynamics (i.e., $q_{il}^{(2)}=0$ for all $l$); 
+We simulated three environmental drivers: an "operating" driver that strongly influences population dynamics (i.e., $q_{i1}^{(1)}=1$, $q_{il}^{(1)}=0$ for $l>1$) and is spatially structured; a "latent" driver that is also spatially structured but does not influence population dynamics (i.e., $q_{il}^{(2)}=0$ for all $l$); 
 and a third driver 
 representing local variability that is spatially unstructured (uncorrelated in different locations) and has a small influence on population dynamics (i.e., $q_{i1}^{(3)}=0.1$, $q_{il}^{(3)}=0$ for $l>1$). 
 Spatial structure in environmental drivers, which were independent and identically distributed through time, 
