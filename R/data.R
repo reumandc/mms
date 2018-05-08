@@ -30,7 +30,7 @@
 #' \code{LONG_DD} longitude of the location in decimal degrees
 #' \code{Hab} habitat type, corresponding to whether a site was in the channel, the embayment or in embayment mouths on the west or east shoreline
 #' \code{Temperature} degrees Celsius, taken at 1 m depth intervals and averaged over all depths
-#' \code{Conductivity: mS/m, taken at 1 m depth intervals and averaged over all depths
+#' \code{Conductivity} mS/m, taken at 1 m depth intervals and averaged over all depths
 #' \code{pH} standard units, taken at 1 m depth intervals and averaged over all depths
 #' \code{DissolvedOxygen} taken at 1 m depth intervals and averaged over all depths
 #' \code{NH3} mg/L, averaged over two samples taken 1 m below the surface and 1 m above the bottom
@@ -42,15 +42,15 @@
 #' \code{TotalP} mg/L, averaged over two samples taken 1 m below the surface and 1 m above the bottom
 #' \code{SecchiDepth} meters, taken on the shaded side of the boat
 #' \code{Chlorophyll} µg/L
-#' \code{Bosmina} # of individuals per 45 L
-#' \code{Diaphanosoma} # of individuals per 45 L
-#' \code{Daphnia_lumholtzi} # of individuals per 45 L
-#' \code{Holopedium} # of individuals per 45 L
-#' \code{Daphnia} # of individuals per 45 L; all Daphnia that were not Daphnia lumholtzi, primarily (>90%) Daphnia retrocurva
-#' \code{Ceriodaphnia} # of individuals per 45 L
-#' \code{Calanoida} # of individuals per 45 L
-#' \code{Cyclopoida} # of individuals per 45 L
-#' \code{Leptodora: # of individuals per 45 L
+#' \code{Bosmina} number of individuals per 45 L
+#' \code{Diaphanosoma} number of individuals per 45 L
+#' \code{Daphnia_lumholtzi} number of individuals per 45 L
+#' \code{Holopedium} number of individuals per 45 L
+#' \code{Daphnia} number of individuals per 45 L; all Daphnia that were not Daphnia lumholtzi, primarily (>90%) Daphnia retrocurva
+#' \code{Ceriodaphnia} number of individuals per 45 L
+#' \code{Calanoida} number of individuals per 45 L
+#' \code{Cyclopoida} number of individuals per 45 L
+#' \code{Leptodora} number of individuals per 45 L
 #' 
 #' @importFrom ncf gcdist
 "kyldat"

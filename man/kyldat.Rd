@@ -4,7 +4,34 @@
 \name{kyldat}
 \alias{kyldat}
 \title{Data from Kentucky Lake}
-\format{An object of class \code{data.frame} with 416 rows and 27 columns.}
+\format{A data frame with these columns:
+\code{Station} name of the sampling location
+\code{Year} year the samples were taken
+\code{LAT_DD} latitude of the location in decimal degrees 
+\code{LONG_DD} longitude of the location in decimal degrees
+\code{Hab} habitat type, corresponding to whether a site was in the channel, the embayment or in embayment mouths on the west or east shoreline
+\code{Temperature} degrees Celsius, taken at 1 m depth intervals and averaged over all depths
+\code{Conductivity} mS/m, taken at 1 m depth intervals and averaged over all depths
+\code{pH} standard units, taken at 1 m depth intervals and averaged over all depths
+\code{DissolvedOxygen} taken at 1 m depth intervals and averaged over all depths
+\code{NH3} mg/L, averaged over two samples taken 1 m below the surface and 1 m above the bottom
+\code{SiO2} mg/L, averaged over two samples taken 1 m below the surface and 1 m above the bottom
+\code{SRP} mg/L, averaged over two samples taken 1 m below the surface and 1 m above the bottom
+\code{DissolvedN} mg/L, averaged over two samples taken 1 m below the surface and 1 m above the bottom
+\code{DissolvedP} mg/L, averaged over two samples taken 1 m below the surface and 1 m above the bottom
+\code{TotalN} mg/L, averaged over two samples taken 1 m below the surface and 1 m above the bottom
+\code{TotalP} mg/L, averaged over two samples taken 1 m below the surface and 1 m above the bottom
+\code{SecchiDepth} meters, taken on the shaded side of the boat
+\code{Chlorophyll} µg/L
+\code{Bosmina} number of individuals per 45 L
+\code{Diaphanosoma} number of individuals per 45 L
+\code{Daphnia_lumholtzi} number of individuals per 45 L
+\code{Holopedium} number of individuals per 45 L
+\code{Daphnia} number of individuals per 45 L; all Daphnia that were not Daphnia lumholtzi, primarily (>90%) Daphnia retrocurva
+\code{Ceriodaphnia} number of individuals per 45 L
+\code{Calanoida} number of individuals per 45 L
+\code{Cyclopoida} number of individuals per 45 L
+\code{Leptodora} number of individuals per 45 L}
 \usage{
 kyldat
 }
