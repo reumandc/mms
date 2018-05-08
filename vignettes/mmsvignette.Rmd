@@ -111,7 +111,7 @@ Data and sampling methods were described in detail elsewhere [@bukaveckas_2002; 
 <!--The white 2007 reference also appears not to render correctly in the PDF-->
 Data are annual averages for 1990-2015 of measurements 
 of various plankton and environmental quantities at 16 locations in the lake.
-Numerous variables were measured and are elaborate in the package help file for the dataset 
+Numerous variables were measured and are elaborated in the package help file for the dataset 
 (`?kyldat`). We analyze chlorphyll-a densities, water temperatures, total N concentrations,
 and total P concentrations. For each of these variables, data comprise a 26 (number of years, 1990 to 2015)
 by 16 (number of sampling locations) matrix. No data were missing.
@@ -275,7 +275,6 @@ w_1(t) \\
 w_P(t)
 \end{array}
 \right) \approx D
-<!--\left[--> <!--Jon is just commenting these out for now, but the brackets appear unnecessary-->
 \left(
 \begin{array}{c}
 \sum_{l = 1}^{a}m_{ 1l}w_{ 1}(t  - l)+\sum_{j=1}^{b}\sum_{l=0}^{c}q_{1l}^{(j)}\epsilon_{1}^{(j)}(t-l) \\
@@ -283,7 +282,6 @@ w_P(t)
 \sum_{l = 1}^{a}m_{ Pl}w_{ P}(t  - l)+\sum_{j=1}^{b}\sum_{l=0}^{c}q_{Pl}^{(j)}\epsilon_{P}^{(j)}(t-l) \\
 \end{array}
 \right)
-<!--\right],--> <!--other side of the brackets-->
 \end{equation}
 
 Here we consider a scenario in which spatial structure in population dynamics (i.e., geography of synchrony) arises from spatial structure in an environmental driver. 
