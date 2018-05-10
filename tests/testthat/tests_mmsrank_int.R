@@ -1,7 +1,7 @@
 context("mmsrank_int")
+library(mms)
 
 test_that("test mmsrank_int in an arbitrary test case that should come out the same on future runs", {
-  old.seed<-.Random.seed
   set.seed(201)
   v2<-matrix(rnorm(100),10,10)
   v3<-matrix(rnorm(100),10,10)
@@ -15,11 +15,9 @@ test_that("test mmsrank_int in an arbitrary test case that should come out the s
   h<-mmsrank_int(mats=mats,model.names=model.names,n=n,maxruns=maxruns,rank.mod=rank.mod)
   #I got this hash with digest::digest(h)
   expect_known_hash(h,hash="a114eab35c7fff7b74efe6f1afe50f95")    
-  .Random.seed<-old.seed
 })
 
 test_that("test mmsrank_int for a semi-realistic case", {
-  old.seed<-.Random.seed
   set.seed(401)
   v2<-matrix(rnorm(100),10,10)
   v3<-matrix(rnorm(100),10,10)
@@ -39,11 +37,9 @@ test_that("test mmsrank_int for a semi-realistic case", {
   #All of these were true for this seed when I looked at the output. So just error check whether
   #the same output is obtained on future runs.
   expect_known_hash(h,hash="2d4617739698782f00a0f1c0c9f1ecea")    
-  .Random.seed<-old.seed
 })
 
 test_that("test ancillary output for mmsrank_int",{
-  old.seed<-.Random.seed
   set.seed(401)
   v2<-matrix(rnorm(100),10,10)
   v3<-matrix(rnorm(100),10,10)
@@ -59,6 +55,5 @@ test_that("test ancillary output for mmsrank_int",{
   expect_equal(h$num.att,rep(maxruns,7))
   expect_equal(h$num.rnk<=rep(maxruns,7),rep(T,7))
   expect_equal(h$num.usd<=h$num.rnk,rep(T,7))
-  .Random.seed<-old.seed
 })
 

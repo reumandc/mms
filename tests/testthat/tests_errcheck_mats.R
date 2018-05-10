@@ -1,4 +1,5 @@
 context("errcheck_mats")
+library(mms)
 
 test_that("test error handling abilities", {
   comingfrom<-"faketestfun"

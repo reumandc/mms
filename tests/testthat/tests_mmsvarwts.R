@@ -1,4 +1,5 @@
 context("mmsvarwts")
+library(mms)
 
 test_that("test error catching functionality of mmsvarwts", {
  #test 1

@@ -1,4 +1,5 @@
 context("errcheck_pred")
+library(mms)
 
 test_that("test error handling abilities", {
   comingfrom<-"faketestfun"

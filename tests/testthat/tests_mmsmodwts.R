@@ -1,7 +1,7 @@
 context("mmsmodwts")
+library(mms)
 
 test_that("test mmssmodwts in an arbitrary test case that should come out the same on future runs", {
-  old.seed<-.Random.seed
   set.seed(201)
   v2<-matrix(rnorm(100),10,10)
   v2<-v2+t(v2)
@@ -28,6 +28,5 @@ test_that("test mmssmodwts in an arbitrary test case that should come out the sa
   expect_equal(h$num.att,rep(nrand*maxruns,7))
   expect_equal(h$num.rnk<=h$num.att,rep(T,7))
   expect_equal(h$num.usd<=h$num.rnk,rep(T,7))
-  .Random.seed<-old.seed
 })  
 

@@ -1,7 +1,7 @@
 context("mmsscore_int")
+library(mms)
 
 test_that("test mmsscore_int in a perfect-regression case", {
-  old.seed<-.Random.seed
   set.seed(101)
   v2<-matrix(rnorm(100),10,10)
   v3<-matrix(rnorm(100),10,10)
@@ -15,11 +15,9 @@ test_that("test mmsscore_int in a perfect-regression case", {
   expect_equal(h$lno.score,0)
   expect_equal(h$num.pos,choose(10,2))
   expect_equal(h$num.att,choose(10,2))
-  .Random.seed<-old.seed
 })
 
 test_that("test mmsscore_int in an arbitrary test case that should come out the same on future runs", {
-  old.seed<-.Random.seed
   set.seed(201)
   v2<-matrix(rnorm(100),10,10)
   v3<-matrix(rnorm(100),10,10)
@@ -32,11 +30,9 @@ test_that("test mmsscore_int in an arbitrary test case that should come out the 
   h<-mmsscore_int(mats,pred,n,maxruns)
   #I got this hash with digest::digest(h)
   expect_known_hash(h,hash="7bc4275e3365541e02473d793293ae03")  
-  .Random.seed<-old.seed
 })
 
 test_that("test mmsscore_int ancillary outputs", {
-  old.seed<-.Random.seed
   set.seed(201)
   v2<-matrix(rnorm(100),10,10)
   v3<-matrix(rnorm(100),10,10)
@@ -51,5 +47,4 @@ test_that("test mmsscore_int ancillary outputs", {
   expect_equal(h$num.att,maxruns)
   expect_lte(h$num.rnk,maxruns)
   expect_lte(h$num.usd,h$num.rnk)
-  .Random.seed<-old.seed
 })

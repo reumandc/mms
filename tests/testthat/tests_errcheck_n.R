@@ -1,4 +1,5 @@
 context("errcheck_n")
+library(mms)
 
 test_that("error checking capability", {
   comingfrom<-"fakefunname"

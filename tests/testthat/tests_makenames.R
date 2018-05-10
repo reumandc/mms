@@ -1,4 +1,5 @@
 context("makenames")
+library(mms)
 
 test_that("tests of makenames",{
   expect_equal(makenames(3),list(2,3,c(2,3)))

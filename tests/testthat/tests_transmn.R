@@ -1,4 +1,5 @@
 context("transmn")
+library(mms)
 
 test_that("tests for transmn error checking",{
   expect_error(transmn(list(2:3,c(1,4,5)),"num"),
